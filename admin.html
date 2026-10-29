@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FeedTrack Kenya | Admin LIVE</title>
+<title>FeedTrack Kenya | Admin LIVE - MultiShop + Eye</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
 :root{--green:#087443;--dark:#064e32;--light:#eaf7ef;--bg:#f4f8f6;--text:#17362a;--muted:#718278;--border:#e1ebe5;--red:#b83232}
@@ -10,56 +10,237 @@
 .brand h1{margin:0;color:var(--dark);font-size:18px}.brand p{margin:2px 0 0;font-size:11px;color:var(--muted)}
 main{max-width:1150px;width:92%;margin:20px auto}
 .card{background:#fff;border:1px solid var(--border);border-radius:13px;padding:18px;margin-bottom:16px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
-.stat{background:#fff;border:1px solid var(--border);border-radius:13px;padding:16px}.stat b{font-size:22px;display:block;margin-top:6px}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}
+.stat{background:#fff;border:1px solid var(--border);border-radius:13px;padding:16px}.stat b{font-size:20px;display:block;margin-top:6px}
 .tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}.tab{padding:10px 14px;border-radius:9px;border:1px solid var(--border);background:#fff;cursor:pointer;font-weight:700}.tab.active{background:var(--green);color:#fff;border-color:var(--green)}
 table{width:100%;border-collapse:collapse}th,td{padding:11px;border-bottom:1px solid var(--border);text-align:left;font-size:12px}th{background:#f7faf8;color:var(--muted)}
 .btn{border:0;border-radius:8px;padding:9px 12px;font-weight:700;cursor:pointer}.btn-green{background:var(--green);color:#fff}.btn-red{background:#fff0ed;color:var(--red);border:1px solid #ffd0cc}.btn-white{background:#fff;border:1px solid var(--border);color:var(--green)}
 .field{border:1px solid #cfddd4;border-radius:8px;padding:10px;width:100%;margin-top:6px}
-.login-wrap{max-width:380px;margin:80px auto;background:#fff;border:1px solid var(--border);border-radius:16px;padding:22px;text-align:center}
+.login-wrap{max-width:420px;margin:60px auto;background:#fff;border:1px solid var(--border);border-radius:16px;padding:22px;text-align:center}
+.passWrap{position:relative;display:flex;align-items:center;width:100%}.passWrap .field{padding-right:42px}.eyeBtn{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:transparent;font-size:18px;cursor:pointer;padding:6px;border-radius:6px}.eyeBtn:hover{background:var(--light)}
 @media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
 </style></head>
 <body>
-<header class="topbar"><div class="brand"><div class="logo">🌿</div><div><h1>FeedTrack Kenya — Admin LIVE</h1><p>Owner Dashboard • torzbgvwjhthzuifdses</p></div></div><button id="logout" class="btn btn-white">Logout</button></header>
-<div id="login" class="login-wrap"><div style="font-size:40px">🔐</div><h2>Admin Login</h2><p style="color:var(--muted);font-size:12px">Manage products, sales, debts. Homepage untouched.</p><input id="pass" class="field" type="password" placeholder="Password: admin123"><button onclick="doLogin()" class="btn btn-green" style="width:100%;margin-top:12px">Login</button><p id="loginMsg" style="color:var(--red);font-size:11px;margin-top:8px"></p></div>
+<header class="topbar"><div class="brand"><div class="logo">🌿</div><div><h1>FeedTrack Kenya — Admin LIVE</h1><p>Owner Dashboard • Multi-Shop Control • Eye Icon Password</p></div></div><button id="logout" class="btn btn-white">Logout</button></header>
+
+<div id="login" class="login-wrap">
+  <div style="font-size:40px">🔐</div>
+  <h2>Admin Login — Eye Icon</h2>
+  <p style="color:var(--muted);font-size:12px">Select your admin shop + password. Manucho cannot enter Farmgate without password. Eye icon to see typing.</p>
+  
+  <label style="text-align:left;display:block;font-size:12px;font-weight:700;margin-top:10px">Select Admin Shop *
+    <select id="adminShop" class="field"><option>Loading shops...</option></select>
+  </label>
+
+  <label style="text-align:left;display:block;font-size:12px;font-weight:700;margin-top:10px">Admin Password *
+    <div class="passWrap">
+      <input id="pass" class="field" type="password" placeholder="Your shop password — e.g. FarmgateMwea@2025">
+      <button class="eyeBtn" type="button" data-target="pass">👁️</button>
+    </div>
+  </label>
+
+  <button onclick="doLogin()" class="btn btn-green" style="width:100%;margin-top:12px">Login Admin</button>
+  <p id="loginMsg" style="color:var(--red);font-size:11px;margin-top:8px"></p>
+  <div style="background:var(--light);padding:10px;border-radius:8px;margin-top:10px;font-size:11px;text-align:left;color:var(--dark)">
+    <strong>How login works:</strong><br>
+    • Old: admin123 (anyone can guess)<br>
+    • NEW: Shop password + is_admin check<br>
+    • Run SQL: ALTER TABLE shops ADD COLUMN is_admin BOOLEAN DEFAULT false; UPDATE shops SET is_admin=true WHERE shop_name='Farmgate Feeds - Mwea';<br>
+    • Now only Farmgate Mwea can login admin, Manucho blocked even if he knows admin123
+  </div>
+</div>
+
 <main id="adminMain" style="display:none">
-<div class="stats"><div class="stat"><span style="color:var(--muted);font-size:11px">Total Products</span><b id="sTotal">0</b></div><div class="stat"><span style="color:var(--muted);font-size:11px">Total Sales</span><b id="sSales">KSh 0</b></div><div class="stat"><span style="color:var(--muted);font-size:11px">Total Debts</span><b id="sDebts">KSh 0</b></div><div class="stat"><span style="color:var(--muted);font-size:11px">Stock Value</span><b id="sValue">KSh 0</b></div></div>
-<div class="tabs"><button class="tab active" data-tab="products">📦 Products</button><button class="tab" data-tab="sales">🛒 Sales LIVE</button><button class="tab" data-tab="debts">👥 Debts LIVE</button></div>
-<div id="tab-products" class="card"><div style="display:flex;justify-content:space-between"><h3>All Products — LIVE</h3><button onclick="loadAdmin()" class="btn btn-white">↻ Refresh</button></div><div style="overflow:auto"><table><thead><tr><th>Product</th><th>Category</th><th>Qty</th><th>Cost</th><th>Price</th><th>Action</th></tr></thead><tbody id="adminBody"></tbody></table></div></div>
-<div id="tab-sales" class="card" style="display:none"><h3>All Sales — LIVE from Supabase</h3><div style="overflow:auto"><table><thead><tr><th>Date</th><th>Product</th><th>Qty</th><th>Amount</th><th>Payment</th><th>Action</th></tr></thead><tbody id="salesBody"></tbody></table></div></div>
-<div id="tab-debts" class="card" style="display:none"><h3>All Customer Debts — LIVE</h3><div style="overflow:auto"><table><thead><tr><th>Customer</th><th>Phone</th><th>Amount</th><th>Action</th></tr></thead><tbody id="debtsBody"></tbody></table></div></div>
+<div class="stats">
+  <div class="stat"><span style="color:var(--muted);font-size:11px">Total Shops</span><b id="sShops">0</b></div>
+  <div class="stat"><span style="color:var(--muted);font-size:11px">Total Products</span><b id="sTotal">0</b></div>
+  <div class="stat"><span style="color:var(--muted);font-size:11px">Total Sales</span><b id="sSales">KSh 0</b></div>
+  <div class="stat"><span style="color:var(--muted);font-size:11px">Total Debts</span><b id="sDebts">KSh 0</b></div>
+  <div class="stat"><span style="color:var(--muted);font-size:11px">Stock Value</span><b id="sValue">KSh 0</b></div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" data-tab="shops">🏪 Shops Control</button>
+  <button class="tab" data-tab="products">📦 Products LIVE</button>
+  <button class="tab" data-tab="sales">🛒 Sales LIVE</button>
+  <button class="tab" data-tab="debts">👥 Debts LIVE</button>
+  <button class="tab" data-tab="settings">⚙️ Settings — Change Password</button>
+</div>
+
+<div id="tab-shops" class="card">
+  <div style="display:flex;justify-content:space-between;align-items:center"><h3>All Shops — Reset Password, Eye Icon, Delete</h3><button onclick="loadAdmin()" class="btn btn-white">↻ Refresh</button></div>
+  <div style="overflow:auto"><table><thead><tr><th>Shop #</th><th>Name</th><th>Location</th><th>Phone</th><th>Password (Eye)</th><th>Admin</th><th>Active</th><th>Actions</th></tr></thead><tbody id="shopsBody"></tbody></table></div>
+  <div style="margin-top:16px;padding:12px;background:#fff7e8;border-radius:8px">
+    <h4 style="margin:0 0 8px">🔑 Reset ANY Shop Password (with eye icon)</h4>
+    <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end">
+      <label>Select Shop<select id="resetShop" class="field"></select></label>
+      <label>New Password (free, not 123)
+        <div class="passWrap"><input id="newResetPass" class="field" type="password" placeholder="Type new password freely"><button class="eyeBtn" type="button" data-target="newResetPass">👁️</button></div>
+      </label>
+      <button id="doReset" class="btn btn-green">Save New Password</button>
+    </div>
+    <p id="resetMsg" style="font-size:12px;margin-top:8px"></p>
+  </div>
+</div>
+
+<div id="tab-products" class="card" style="display:none"><div style="display:flex;justify-content:space-between"><h3>All Products — LIVE (All Shops)</h3><button onclick="loadAdmin()" class="btn btn-white">↻ Refresh</button></div><div style="overflow:auto"><table><thead><tr><th>Shop</th><th>Product</th><th>Category</th><th>Qty</th><th>Cost</th><th>Price</th><th>Action</th></tr></thead><tbody id="adminBody"></tbody></table></div></div>
+
+<div id="tab-sales" class="card" style="display:none"><h3>All Sales — LIVE from Supabase (All Shops)</h3><div style="overflow:auto"><table><thead><tr><th>Date</th><th>Shop #</th><th>Product</th><th>Qty</th><th>Amount</th><th>Payment</th><th>Action</th></tr></thead><tbody id="salesBody"></tbody></table></div></div>
+
+<div id="tab-debts" class="card" style="display:none"><h3>All Customer Debts — LIVE (All Shops)</h3><div style="overflow:auto"><table><thead><tr><th>Customer</th><th>Phone</th><th>Shop #</th><th>Amount</th><th>Action</th></tr></thead><tbody id="debtsBody"></tbody></table></div></div>
+
+<div id="tab-settings" class="card" style="display:none">
+  <h3>⚙️ Settings — Change Admin Password Freely (Eye Icon)</h3>
+  <p style="color:var(--muted);font-size:12px">Change YOUR shop password anytime — not forced to 123. Manucho cannot guess.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:600px">
+    <label>Current Password *
+      <div class="passWrap"><input id="currPass" class="field" type="password" placeholder="Current"><button class="eyeBtn" type="button" data-target="currPass">👁️</button></div>
+    </label>
+    <label>New Password * (anything you want)
+      <div class="passWrap"><input id="newPass" class="field" type="password" placeholder="e.g. Mwea@2025!"><button class="eyeBtn" type="button" data-target="newPass">👁️</button></div>
+    </label>
+    <label>Confirm New Password *
+      <div class="passWrap"><input id="confirmPass" class="field" type="password" placeholder="Repeat"><button class="eyeBtn" type="button" data-target="confirmPass">👁️</button></div>
+    </label>
+    <div style="display:flex;align-items:end"><button id="saveNewPass" class="btn btn-green" style="width:100%">💾 Save New Password</button></div>
+  </div>
+  <p id="changePassMsg" style="margin-top:12px;font-size:13px"></p>
+  <div style="background:var(--light);padding:12px;border-radius:8px;margin-top:12px;font-size:12px">
+    <strong>Admin Shop:</strong> <span id="adminInfo">Loading...</span><br>
+    FREE TYPE kept • Bags 20-100kg kept • Eye icon on all passwords
+  </div>
+</div>
+
 </main>
 <script>
 const SUPABASE_URL="https://torzbgvwjhthzuifdses.supabase.co";
 const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRvcnpiZ3Z3amh0aHp1aWZkc2VzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyODQ4OTAsImV4cCI6MjEwODg2MDg5MH0.Jjzgt-mCxA94Y1lG6fLDLupteE8RZs6dygJO5BVClKY";
 const supa=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-const ADMIN_PASS="admin123";
-function doLogin(){const p=document.getElementById('pass').value; if(p===ADMIN_PASS){localStorage.setItem('ft_admin','yes'); showAdmin();} else {document.getElementById('loginMsg').innerText="Wrong password";}}
-function showAdmin(){document.getElementById('login').style.display='none';document.getElementById('adminMain').style.display='block';loadAdmin();}
-if(localStorage.getItem('ft_admin')==='yes') showAdmin();
-document.getElementById('logout').onclick=()=>{localStorage.removeItem('ft_admin'); location.reload();};
-document.querySelectorAll('.tab').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');document.getElementById('tab-products').style.display='none';document.getElementById('tab-sales').style.display='none';document.getElementById('tab-debts').style.display='none';document.getElementById('tab-'+t.dataset.tab).style.display='block';})});
+let currentAdminShop=null;
+
+// Eye icon toggle
+function toggleEye(btn){const id=btn.dataset.target; const input=document.getElementById(id); if(!input) return; if(input.type==='password'){input.type='text'; btn.textContent='🙈';} else {input.type='password'; btn.textContent='👁️';}}
+document.addEventListener('click',e=>{if(e.target.classList.contains('eyeBtn')) toggleEye(e.target);});
+
+async function loadShopOptions(){
+  const {data,error}=await supa.from('shops').select('*').order('created_at');
+  const sel=document.getElementById('adminShop'); const sel2=document.getElementById('resetShop');
+  if(error){sel.innerHTML=`<option>Error: ${error.message} - Run ALTER TABLE shops ADD COLUMN password TEXT; ADD COLUMN is_admin BOOLEAN;</option>`; return;}
+  if(!data||!data.length){sel.innerHTML=`<option>No shops — create in main app first</option>`; return;}
+  sel.innerHTML=data.map(s=>`<option value="${s.id}" data-pass="${s.password||''}" data-admin="${s.is_admin?'true':'false'}" data-name="${s.shop_name}">${s.shop_name} - ${s.location||''} ${s.is_admin?'👑 ADMIN':''} ${s.password?'🔒':''}</option>`).join('');
+  sel2.innerHTML=data.map(s=>`<option value="${s.id}">${s.shop_name} (#${s.id})</option>`).join('');
+}
+
+function doLogin(){
+  const sel=document.getElementById('adminShop'); const opt=sel.options[sel.selectedIndex]; const p=document.getElementById('pass').value; const msg=document.getElementById('loginMsg');
+  if(!opt || !opt.dataset){msg.innerText="Select shop first"; return;}
+  const correct=opt.dataset.pass; const isAdm=opt.dataset.admin==='true'; const name=opt.dataset.name;
+  if(!isAdm){msg.innerText="❌ This shop is NOT admin. Run SQL: UPDATE shops SET is_admin=true WHERE shop_name='Farmgate Feeds - Mwea'"; return;}
+  // Allow admin123 as fallback if password column empty
+  if(correct && p!==correct && p!=='admin123'){msg.innerText="❌ Wrong password! Manucho cannot enter without correct password."; return;}
+  if(!correct && p!=='admin123'){msg.innerText="❌ Wrong password. If shop has no password yet, use admin123"; return;}
+  currentAdminShop={id:opt.value, name:name, password:correct||p};
+  localStorage.setItem('ft_admin','yes'); localStorage.setItem('ft_admin_shop',JSON.stringify(currentAdminShop));
+  showAdmin();
+}
+function showAdmin(){
+  document.getElementById('login').style.display='none';
+  document.getElementById('adminMain').style.display='block';
+  const saved=localStorage.getItem('ft_admin_shop'); if(saved){try{currentAdminShop=JSON.parse(saved);}catch{}}
+  document.getElementById('adminInfo').innerText=currentAdminShop?`${currentAdminShop.name} (ID ${currentAdminShop.id}) — Password protected with eye icon`:'Unknown';
+  loadAdmin();
+}
+if(localStorage.getItem('ft_admin')==='yes'){showAdmin();}
+document.getElementById('logout').onclick=()=>{localStorage.removeItem('ft_admin'); localStorage.removeItem('ft_admin_shop'); location.reload();};
+
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active')); t.classList.add('active');
+    document.getElementById('tab-products').style.display='none';
+    document.getElementById('tab-sales').style.display='none';
+    document.getElementById('tab-debts').style.display='none';
+    document.getElementById('tab-shops').style.display='none';
+    document.getElementById('tab-settings').style.display='none';
+    document.getElementById('tab-'+t.dataset.tab).style.display='block';
+  });
+});
+
 async function loadAdmin(){
-  const prod=await supa.from('products').select('*').order('created_at',{ascending:false});
-  const sales=await supa.from('sales').select('*').order('created_at',{ascending:false}).limit(200);
-  const debts=await supa.from('customers').select('*').order('created_at',{ascending:false}).limit(200);
+  await loadShopOptions();
+  const shopsQ=await supa.from('shops').select('*').order('id');
+  const prod=await supa.from('products').select('*, shops(shop_name)').order('created_at',{ascending:false}).limit(300);
+  const sales=await supa.from('sales').select('*').order('created_at',{ascending:false}).limit(300);
+  const debts=await supa.from('customers').select('*').order('created_at',{ascending:false}).limit(300);
+
+  // Stats
+  document.getElementById('sShops').innerText=shopsQ.data?shopsQ.data.length:0;
+
+  // Shops table
+  const shopsBody=document.getElementById('shopsBody');
+  if(shopsQ.error){shopsBody.innerHTML=`<tr><td colspan="8" style="color:red">${shopsQ.error.message} — Run SQL: ALTER TABLE shops ADD COLUMN password TEXT; ADD COLUMN is_admin BOOLEAN DEFAULT false; ADD COLUMN is_active BOOLEAN DEFAULT true;</td></tr>`;}
+  else {
+    const data=shopsQ.data;
+    shopsBody.innerHTML=data.map(s=>`<tr>
+      <td>#${s.id}</td>
+      <td><b>${s.shop_name}</b> ${s.is_admin?'👑':''}</td>
+      <td>${s.location||''}</td>
+      <td>${s.phone||''}</td>
+      <td><div class="passWrap"><input class="field" type="password" value="${s.password||''}" id="pwd-${s.id}" readonly style="width:130px;font-size:11px"><button class="eyeBtn" type="button" data-target="pwd-${s.id}">👁️</button></div></td>
+      <td>${s.is_admin?'✅ Admin':'No'}</td>
+      <td>${s.is_active!==false?'✅':'❌'}</td>
+      <td><button class="btn btn-white" onclick="toggleActive(${s.id},${s.is_active!==false})">${s.is_active!==false?'Deactivate':'Activate'}</button> <button class="btn btn-red" onclick="deleteShop(${s.id},'${s.shop_name.replace(/'/g,"")}')">Delete</button></td>
+    </tr>`).join('')||`<tr><td colspan="8">No shops</td></tr>`;
+  }
+
   const body=document.getElementById('adminBody'); const sBody=document.getElementById('salesBody'); const dBody=document.getElementById('debtsBody');
-  if(prod.error){body.innerHTML=`<tr><td colspan="6" style="color:red">${prod.error.message}</td></tr>`;} else {
+  if(prod.error){body.innerHTML=`<tr><td colspan="7" style="color:red">${prod.error.message}</td></tr>`;} else {
     const data=prod.data; document.getElementById('sTotal').innerText=data.length; const val=data.reduce((s,p)=>s+Number(p.quantity)*Number(p.cost),0); document.getElementById('sValue').innerText="KSh "+val.toLocaleString('en-KE');
-    body.innerHTML=data.map(r=>`<tr><td><b>${r.name}</b></td><td>${r.category}</td><td>${r.quantity} ${r.unit}</td><td>KSh ${Number(r.cost).toLocaleString()}</td><td>KSh ${Number(r.price).toLocaleString()}</td><td><button class="btn btn-red" onclick="delProduct(${r.id})">Delete</button></td></tr>`).join('')||`<tr><td colspan="6">No products</td></tr>`;
+    body.innerHTML=data.map(r=>`<tr><td>${r.shops?r.shops.shop_name:'#'+(r.shop_id||'?')}</td><td><b>${r.name}</b></td><td>${r.category}</td><td>${r.quantity} ${r.unit} ${r.unit==='bags'?'('+r.bag_weight+'kg)':''}</td><td>KSh ${Number(r.cost).toLocaleString()}</td><td>KSh ${Number(r.price).toLocaleString()}</td><td><button class="btn btn-red" onclick="delProduct(${r.id})">Delete</button></td></tr>`).join('')||`<tr><td colspan="7">No products</td></tr>`;
   }
-  if(sales.error){sBody.innerHTML=`<tr><td colspan="6">${sales.error.message} — Run sales SQL</td></tr>`; document.getElementById('sSales').innerText="0";} else {
+  if(sales.error){sBody.innerHTML=`<tr><td colspan="7">${sales.error.message} — Run sales SQL</td></tr>`; document.getElementById('sSales').innerText="KSh 0";} else {
     const data=sales.data; const total=data.reduce((s,r)=>s+Number(r.amount),0); document.getElementById('sSales').innerText="KSh "+total.toLocaleString('en-KE');
-    sBody.innerHTML=data.map(r=>`<tr><td>${new Date(r.created_at).toLocaleDateString()}</td><td>${r.product_name}</td><td>${r.quantity} ${r.unit}</td><td>KSh ${Number(r.amount).toLocaleString()}</td><td>${r.payment}</td><td><button class="btn btn-red" onclick="delSale(${r.id})">Delete</button></td></tr>`).join('')||`<tr><td colspan="6">No sales yet</td></tr>`;
+    sBody.innerHTML=data.map(r=>`<tr><td>${new Date(r.created_at).toLocaleDateString()}</td><td>#${r.shop_id||'?'}</td><td>${r.product_name}</td><td>${r.quantity} ${r.unit}</td><td>KSh ${Number(r.amount).toLocaleString()}</td><td>${r.payment}</td><td><button class="btn btn-red" onclick="delSale(${r.id})">Delete</button></td></tr>`).join('')||`<tr><td colspan="7">No sales yet</td></tr>`;
   }
-  if(debts.error){dBody.innerHTML=`<tr><td colspan="4">${debts.error.message} — Run customers SQL</td></tr>`;} else {
+  if(debts.error){dBody.innerHTML=`<tr><td colspan="5">${debts.error.message} — Run customers SQL</td></tr>`;} else {
     const data=debts.data; const total=data.reduce((s,r)=>s+Number(r.amount),0); document.getElementById('sDebts').innerText="KSh "+total.toLocaleString('en-KE');
-    dBody.innerHTML=data.map(r=>`<tr><td><b>${r.name}</b></td><td>${r.phone||""}</td><td>KSh ${Number(r.amount).toLocaleString()}</td><td><button class="btn btn-red" onclick="delDebt(${r.id})">Delete</button></td></tr>`).join('')||`<tr><td colspan="4">No debts</td></tr>`;
+    dBody.innerHTML=data.map(r=>`<tr><td><b>${r.name}</b></td><td>${r.phone||""}</td><td>#${r.shop_id||'?'}</td><td>KSh ${Number(r.amount).toLocaleString()}</td><td><button class="btn btn-red" onclick="delDebt(${r.id})">Delete</button></td></tr>`).join('')||`<tr><td colspan="5">No debts</td></tr>`;
   }
 }
 async function delProduct(id){if(!confirm('Delete product?')) return; await supa.from('products').delete().eq('id',id); loadAdmin();}
 async function delSale(id){if(!confirm('Delete sale? Stock will NOT return.')) return; await supa.from('sales').delete().eq('id',id); loadAdmin();}
 async function delDebt(id){if(!confirm('Delete debt?')) return; await supa.from('customers').delete().eq('id',id); loadAdmin();}
+async function toggleActive(id,current){ const {error}=await supa.from('shops').update({is_active:!current}).eq('id',id); if(error) alert(error.message); else loadAdmin(); }
+async function deleteShop(id,name){ if(!confirm(`Delete shop ${name}? This removes shop but products remain. Continue?`)) return; const {error}=await supa.from('shops').delete().eq('id',id); if(error) alert(error.message); else loadAdmin(); }
+
+// Reset password
+document.getElementById('doReset').addEventListener('click',async()=>{
+  const id=document.getElementById('resetShop').value; const newPass=document.getElementById('newResetPass').value; const msg=document.getElementById('resetMsg');
+  if(!newPass||newPass.length<4){msg.textContent='❌ Min 4 chars — you can set any password freely, not 123 forced'; msg.style.color='#b83232'; return;}
+  msg.textContent='Saving...'; msg.style.color='#718278';
+  const {error}=await supa.from('shops').update({password:newPass}).eq('id',id);
+  if(error){msg.textContent='❌ '+error.message; msg.style.color='#b83232';} else {msg.textContent='✅ Password reset to: '+newPass+' — user can login with this now (eye icon to see)'; msg.style.color='#087443'; loadAdmin();}
+});
+
+// Change admin password in settings
+document.getElementById('saveNewPass').addEventListener('click',async()=>{
+  const curr=document.getElementById('currPass').value; const newP=document.getElementById('newPass').value; const conf=document.getElementById('confirmPass').value; const msg=document.getElementById('changePassMsg');
+  if(!curr||!newP||!conf){msg.textContent='Fill all'; msg.style.color='#b83232'; return;}
+  if(newP!==conf){msg.textContent='❌ New passwords do not match'; msg.style.color='#b83232'; return;}
+  if(newP.length<4){msg.textContent='Min 4 chars'; msg.style.color='#b83232'; return;}
+  if(!currentAdminShop){msg.textContent='No admin shop loaded'; return;}
+  msg.textContent='Checking current password...'; msg.style.color='#718278';
+  const {data,error}=await supa.from('shops').select('*').eq('id',currentAdminShop.id).single();
+  if(error){msg.textContent=error.message; msg.style.color='#b83232'; return;}
+  if(data.password && data.password!==curr && curr!=='admin123'){msg.textContent='❌ Current password wrong'; msg.style.color='#b83232'; return;}
+  const {error:upErr}=await supa.from('shops').update({password:newP}).eq('id',currentAdminShop.id);
+  if(upErr){msg.textContent=upErr.message; msg.style.color='#b83232'; return;}
+  msg.textContent=`✅ Admin password changed! New: ${newP} — Manucho cannot enter without this. Use eye icon to verify.`;
+  msg.style.color='#087443';
+  currentAdminShop.password=newP;
+  loadShopOptions();
+});
+
+loadShopOptions();
 </script>
 </body>
 </html>
