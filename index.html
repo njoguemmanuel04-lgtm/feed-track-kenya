@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Farmgate Feeds - Mwea | FIXED - No Super Admin Leak</title>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Farmgate Feeds - Mwea | FINAL - Profit PIN Per Shop</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>:root{--green:#087443;--dark:#064e32;--light:#eaf7ef;--bg:#f4f8f6;--text:#17362a;--muted:#718278;--border:#e1ebe5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px Arial}button,input,select{font:inherit}button{cursor:pointer}.topbar{height:72px;padding:0 22px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5}.brand{display:flex;gap:10px;align-items:center}.logo{width:43px;height:43px;border-radius:14px;background:var(--light);display:grid;place-items:center;font-size:25px}.layout{display:flex;min-height:calc(100vh - 72px)}.sidebar{width:218px;background:#fff;border-right:1px solid var(--border);padding:20px 12px}.nav-btn{width:100%;border:0;background:transparent;padding:13px 12px;border-radius:10px;text-align:left;display:flex;gap:11px}.nav-btn.active{background:var(--light);color:var(--green);font-weight:700}main{flex:1;padding:22px}.welcome{border-radius:16px;padding:25px;color:#fff;margin-bottom:20px;background:linear-gradient(110deg,#075b3a,#13834d);display:flex;justify-content:space-between}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:20px}.card{background:#fff;border:1px solid var(--border);border-radius:13px;padding:17px;margin-bottom:16px}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse}th,td{padding:12px 10px;border-bottom:1px solid var(--border);font-size:12px;text-align:left}th{background:#f7faf8}.field{width:100%;border:1px solid #cfddd4;border-radius:8px;padding:11px;background:#fff}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.form-grid label{font-size:12px;font-weight:700}.primary{background:var(--green);color:#fff;border:0;border-radius:9px;padding:11px 15px;font-weight:700}.secondary{background:#fff;border:1px solid var(--border);border-radius:9px;padding:10px 13px}.pill{display:inline-block;padding:5px 8px;border-radius:20px;background:var(--light);color:var(--green);font-size:10px}.empty{color:var(--muted);text-align:center;padding:20px}.notice{background:#fff7e8;color:#85530d;padding:12px;border-radius:9px;margin-bottom:15px;font-size:12px}.mobile-nav{display:none}
 #loginOverlay{position:fixed;inset:0;background:linear-gradient(135deg,#064e32,#13834d);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}
@@ -12,10 +12,10 @@
 .passInputWrap .field{padding-right:40px}
 .eyeBtn{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:transparent;font-size:18px;cursor:pointer;padding:6px;border-radius:6px}
 .eyeBtn:hover{background:#eaf7ef}
-@media(max-width:650px){.sidebar{display:none}.mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--border);justify-content:space-around;padding:7px}.mobile-nav button{border:0;background:transparent;color:var(--muted);font-size:10px}.mobile-nav button.active{color:var(--green)}.form-grid{grid-template-columns:1fr}main{padding-bottom:80px}}</style></head><body>
+@media(max-width:650px){.sidebar{display:none}.mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--border);justify-content:space-around;padding:7px}.mobile-nav button{border:0;background:transparent;color:var(--muted);font-size:10px}.mobile-nav button.active{color:var(--green)}.form-grid{grid-template-columns:1fr}main{padding-bottom:80px}.stats{grid-template-columns:1fr 1fr !important}}</style></head><body>
 <div id="loginOverlay">
   <div class="loginBox">
-    <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px"><div style="width:48px;height:48px;background:var(--light);border-radius:12px;display:grid;place-items:center;font-size:26px">🌿</div><div><h2>Farmgate Feeds</h2><p style="margin:0;font-size:12px;color:#718278">Shop Login - Protected + Eye Icon</p></div></div>
+    <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px"><div style="width:48px;height:48px;background:var(--light);border-radius:12px;display:grid;place-items:center;font-size:26px">🌿</div><div><h2>Farmgate Feeds</h2><p style="margin:0;font-size:12px;color:#718278">Shop Login - Eye Icon + Profit PIN</p></div></div>
     <div id="shopList" class="shopList"><div style="padding:12px;color:var(--muted)">Loading shops...</div></div>
     <div id="passSection" style="display:none;background:var(--light);padding:12px;border-radius:10px;margin-bottom:15px">
       <strong id="passShopName" style="font-size:13px"></strong>
@@ -28,16 +28,17 @@
       </div>
       <div style="display:flex;gap:8px;margin-top:8px;align-items:center"><button class="secondary" id="cancelPass" type="button" style="font-size:11px">Cancel</button><span id="passMsg" style="font-size:12px;color:#b83232;font-weight:700"></span></div>
     </div>
-    <h3 style="margin:14px 0 8px;font-size:13px">Create New Shop (with eye)</h3>
+    <h3 style="margin:14px 0 8px;font-size:13px">Create New Shop - Auto Profit PIN = Shop Password</h3>
     <div class="form-grid" style="grid-template-columns:1fr">
       <label>Shop Name *<input class="field" id="newShopName" placeholder="e.g. Wanguru Agrovet"></label>
       <label>Phone *<input class="field" id="newShopPhone" placeholder="07..."></label>
       <label>Location<input class="field" id="newShopLocation" placeholder="Mwea, Wanguru"></label>
-      <label>Shop Password * (eye icon)
+      <label>Shop Password * (workers use this)
         <div class="passInputWrap">
           <input class="field" id="newShopPass" type="password" placeholder="e.g. Farmgate2025!">
           <button class="eyeBtn" type="button" data-target="newShopPass">👁️</button>
         </div>
+        <small style="color:var(--muted)">Profit PIN will be same at first - owner changes in Settings</small>
       </label>
     </div>
     <button class="primary" id="createShopBtn" style="width:100%;margin-top:12px" type="button">+ Create Shop & Enter</button>
@@ -74,14 +75,14 @@ async function renderShopList(){
     const hasPass=s.password?'🔒':'🔓';
     const isDeactivated=s.is_active===false;
     const style=isDeactivated?'opacity:0.6;background:#fff0ed;border-left:4px solid #b83232':'';
-    return `<div class="shopItem" data-id="${s.id}" data-name="${escapeHTML(s.shop_name)}" data-loc="${escapeHTML(s.location||'')}" data-pass="${escapeHTML(s.password||'')}" data-active="${s.is_active!==false}" data-admin="${s.is_admin?'true':'false'}" style="${style}"><span><strong>${hasPass} ${escapeHTML(s.shop_name)} ${s.is_admin?'👑':''} ${isDeactivated?'⛔':''}</strong><br><small style="color:${isDeactivated?'#b83232':'var(--muted)'}">${escapeHTML(s.location||'')} • ${escapeHTML(s.phone||'')} ${s.is_admin?'👑 SUPER ADMIN':''} ${isDeactivated?'⛔ DEACTIVATED':''}</small></span><span style="color:${isDeactivated?'#b83232':'var(--green)'};font-weight:700">${isDeactivated?'BLOCKED':'Enter →'}</span></div>`;
+    return `<div class="shopItem" data-id="${s.id}" data-name="${escapeHTML(s.shop_name)}" data-loc="${escapeHTML(s.location||'')}" data-pass="${escapeHTML(s.password||'')}" data-active="${s.is_active!==false}" data-admin="${s.is_admin?'true':'false'}" style="${style}"><span><strong>${hasPass} ${escapeHTML(s.shop_name)} ${s.is_admin?'👑':''} ${isDeactivated?'⛔':''}</strong><br><small style="color:${isDeactivated?'#b83232':'var(--muted)'}">${escapeHTML(s.location||'')} • ${escapeHTML(s.phone||'')} ${s.is_admin?'👑 SUPER':''} ${isDeactivated?'⛔ DEACTIVATED':''}</small></span><span style="color:${isDeactivated?'#b83232':'var(--green)'};font-weight:700">${isDeactivated?'BLOCKED':'Enter →'}</span></div>`;
   }).join('');
   list.querySelectorAll('.shopItem').forEach(el=>{
     el.addEventListener('click',()=>{
       if(el.dataset.active==='false'){alert('⛔ SHOP DEACTIVATED! Contact Farmgate Owner. Till: 0116982197');return;}
       const shop={id:Number(el.dataset.id), name:el.dataset.name, loc:el.dataset.loc, pass:el.dataset.pass, is_admin:el.dataset.admin==='true'};
       selectedShopToEnter=shop;
-      document.getElementById('passShopName').textContent=`Enter password for ${shop.name} ${shop.is_admin?'👑 SUPER ADMIN':''}`;
+      document.getElementById('passShopName').textContent=`Enter password for ${shop.name} ${shop.is_admin?'👑 SUPER':''}`;
       document.getElementById('passSection').style.display='block';
       document.getElementById('enterPass').value='';
       document.getElementById('enterPass').type='password';
@@ -98,9 +99,9 @@ async function loginToShop(id,name,loc,is_admin){
   currentShop=shop; saveShop(shop);
   document.getElementById('loginOverlay').style.display='none';
   document.getElementById('passSection').style.display='none';
-  document.getElementById('headerShopName').textContent=name + (is_admin?' 👑 SUPER ADMIN':'');
+  document.getElementById('headerShopName').textContent=name + (is_admin?' 👑':'');
   document.getElementById('headerShopShort').textContent=(loc||name).split(' ')[0];
-  document.getElementById('headerSub').textContent=`Shop #${id} • ${loc||'Mwea'} • ${is_admin?'SUPER ADMIN':'CLIENT'} • LOCKED • LIVE`;
+  document.getElementById('headerSub').textContent=`Shop #${id} • ${loc||'Mwea'} • ${is_admin?'SUPER ADMIN':'CLIENT - Profit PIN Protected'} • LIVE`;
   await loadAll();
 }
 async function tryEnterWithPassword(){
@@ -109,10 +110,7 @@ async function tryEnterWithPassword(){
   const msg=document.getElementById('passMsg');
   if(!entered){msg.textContent='Enter password';return;}
   const {data: freshShop} = await supa.from('shops').select('*').eq('id', selectedShopToEnter.id).single();
-  if(freshShop && freshShop.is_active === false){
-    msg.textContent='⛔ SHOP DEACTIVATED! Contact Owner. Pay Till 0116982197';
-    return;
-  }
+  if(freshShop && freshShop.is_active === false){ msg.textContent='⛔ DEACTIVATED! Contact Owner.'; return; }
   if(!selectedShopToEnter.pass){
     if(confirm(`Shop ${selectedShopToEnter.name} has NO password. Enter?`)){
       await loginToShop(selectedShopToEnter.id,selectedShopToEnter.name,selectedShopToEnter.loc, freshShop?freshShop.is_admin:false);
@@ -121,9 +119,7 @@ async function tryEnterWithPassword(){
   }
   if(entered===selectedShopToEnter.pass){
     await loginToShop(selectedShopToEnter.id,selectedShopToEnter.name,selectedShopToEnter.loc, freshShop?freshShop.is_admin:false);
-  }else{
-    msg.textContent='❌ Wrong password!';
-  }
+  }else{ msg.textContent='❌ Wrong password!'; }
 }
 async function initLogin(){
   const saved=getSavedShop();
@@ -131,12 +127,7 @@ async function initLogin(){
   if(saved && saved.id){
     const {data}=await supa.from('shops').select('*').eq('id',saved.id).maybeSingle();
     if(data){ 
-      if(data.is_active===false){
-        localStorage.removeItem('farmgate_current_shop');
-        alert('⛔ Your shop was DEACTIVATED. Contact owner.');
-        document.getElementById('loginOverlay').style.display='flex';
-        return;
-      }
+      if(data.is_active===false){ localStorage.removeItem('farmgate_current_shop'); alert('⛔ Your shop DEACTIVATED.'); document.getElementById('loginOverlay').style.display='flex'; return; }
       await loginToShop(data.id,data.shop_name,data.location, data.is_admin); return; 
     }
   }
@@ -147,21 +138,20 @@ async function createShop(){
   const shop_name=(nameEl.value||'').trim(); const phone=(phoneEl.value||'').trim(); const location=(locEl.value||'Mwea').trim()||'Mwea'; const password=(passEl.value||'').trim();
   if(!shop_name){msg.textContent='Shop name required';return;}
   if(!phone){msg.textContent='Phone required';return;}
-  if(!password){msg.textContent='Password required! Use eye icon';return;}
+  if(!password){msg.textContent='Password required!';return;}
   if(password.length<4){msg.textContent='Min 4 chars';return;}
   msg.style.color='#718278'; msg.textContent='Creating...';
-  const {data,error}=await supa.from('shops').insert([{shop_name,phone,location,password,is_active:true, is_admin:false}]).select().single();
+  const {data,error}=await supa.from('shops').insert([{shop_name,phone,location,password,profit_pin:password,is_active:true,is_admin:false}]).select().single();
   if(error){ msg.style.color='#b83232'; msg.textContent=error.message; return; }
-  msg.style.color='#087443'; msg.textContent='Created!';
+  msg.style.color='#087443'; msg.textContent='Created! Profit PIN = Shop Password (change in Settings)';
   await loginToShop(data.id,data.shop_name,data.location,false);
   await renderShopList();
 }
-document.getElementById('logoutBtn').addEventListener('click',()=>{localStorage.removeItem('farmgate_current_shop'); currentShop=null; demoProducts=[]; demoSales=[]; demoDebts=[]; document.getElementById('loginOverlay').style.display='flex'; document.getElementById('passSection').style.display='none'; renderShopList();});
+document.getElementById('logoutBtn').addEventListener('click',()=>{if(currentShop) sessionStorage.removeItem(`profit_unlocked_${currentShop.id}`); localStorage.removeItem('farmgate_current_shop'); currentShop=null; demoProducts=[]; demoSales=[]; demoDebts=[]; document.getElementById('loginOverlay').style.display='flex'; document.getElementById('passSection').style.display='none'; renderShopList();});
 document.getElementById('createShopBtn').addEventListener('click',createShop);
 document.getElementById('confirmEnter').addEventListener('click',tryEnterWithPassword);
 document.getElementById('cancelPass').addEventListener('click',()=>{document.getElementById('passSection').style.display='none'; selectedShopToEnter=null;});
 document.getElementById('enterPass').addEventListener('keydown',e=>{if(e.key==='Enter') tryEnterWithPassword();});
-
 async function loadAll(){
   if(!currentShop) return;
   const shopId=currentShop.id;
@@ -171,7 +161,7 @@ async function loadAll(){
   if(!s.error&&s.data) demoSales=s.data.map(r=>({id:r.id,date:new Date(r.created_at).toLocaleDateString(),product:r.product_name,quantity:Number(r.quantity),unit:r.unit,amount:Number(r.amount),payment:r.payment}));
   const c=await supa.from('customers').select('*').eq('shop_id',shopId).order('created_at',{ascending:false}).limit(200);
   if(!c.error&&c.data) demoDebts=c.data.map(r=>({id:r.id,customer:r.name,phone:r.phone,amount:Number(r.amount)}));
-  document.getElementById('liveStatus').textContent=`LIVE • Shop #${shopId} • ${demoProducts.length} products • ONLY YOUR SHOP`;
+  document.getElementById('liveStatus').textContent=`LIVE • Shop #${shopId} • ${demoProducts.length} prod • Profit PIN`;
   render();
 }
 function renderNavigation(){
@@ -186,87 +176,108 @@ function renderNavigation(){
   document.querySelectorAll("[data-page]").forEach(b=>{b.addEventListener("click",()=>{currentPage=b.dataset.page;searchTerm="";productFilter="";render();window.scrollTo({top:0})})});
 }
 function card(title,content){return `<section class="card"><div style="display:flex;justify-content:space-between;margin-bottom:12px"><h3 style="margin:0">${title}</h3></div>${content}</section>`;}
+function calcProfits(){
+  const todayStr = new Date().toLocaleDateString();
+  const todaySales = demoSales.filter(s => s.date === todayStr);
+  const todaySalesAmount = todaySales.reduce((sum,s)=>sum+s.amount,0);
+  let todayProfit = 0;
+  todaySales.forEach(sale => {
+    const prod = demoProducts.find(p => p.name === sale.product);
+    if(prod){
+      let costPerUnit = prod.cost;
+      if(prod.unit==='bags' && sale.unit==='kg') costPerUnit = prod.cost/prod.bag_weight;
+      if(prod.unit==='kg' && sale.unit==='bags') costPerUnit = prod.cost*prod.bag_weight;
+      todayProfit += (sale.amount - (sale.quantity * costPerUnit));
+    }
+  });
+  let totalProfit=0;
+  demoSales.forEach(sale=>{
+    const prod=demoProducts.find(pr=>pr.name===sale.product);
+    if(prod){
+      let cpu=prod.cost;
+      if(prod.unit==='bags' && sale.unit==='kg') cpu=prod.cost/prod.bag_weight;
+      if(prod.unit==='kg' && sale.unit==='bags') cpu=prod.cost*prod.bag_weight;
+      totalProfit+=(sale.amount-(sale.quantity*cpu));
+    }
+  });
+  return {todayStr,todaySales,todaySalesAmount,todayProfit,totalProfit};
+}
 function renderDashboard(){
-  return `<section class="welcome"><div><h2>Welcome to ${escapeHTML(currentShop?currentShop.name:'Farmgate')} ${currentShop&&currentShop.is_admin?'👑 SUPER ADMIN':'🔒'}</h2><p>Shop #${currentShop?currentShop.id:'-'} - ONLY YOUR DATA. Bags 20-100kg. Sales filtered by shop_id.</p><span style="display:inline-block;margin-top:10px;padding:5px 8px;border:1px solid #ffffff70;border-radius:7px;font-size:11px">${currentShop&&currentShop.is_admin?'SUPER ADMIN · See ALL':'CLIENT · See ONLY YOUR SHOP'} · ${demoProducts.length} products • Eye icon • Deactivate works</span></div><div style="font-size:50px">${currentShop&&currentShop.is_admin?'👑':'🔒'}🌾</div></section>
+  const {todayStr,todaySales,todaySalesAmount,todayProfit,totalProfit}=calcProfits();
+  const isUnlocked = currentShop ? sessionStorage.getItem(`profit_unlocked_${currentShop.id}`)==='true' : false;
+  return `<section class="welcome"><div><h2>${escapeHTML(currentShop?currentShop.name:'Farmgate')} ${currentShop&&currentShop.is_admin?'👑 SUPER':'🏪 My Mini Admin'}</h2><p>Shop #${currentShop?currentShop.id:'-'} • ${todayStr} • ONLY YOUR SHOP • Profit PIN protected</p><span style="display:inline-block;margin-top:10px;padding:5px 8px;border:1px solid #ffffff70;border-radius:7px;font-size:11px">${currentShop&&currentShop.is_admin?'SUPER':'CLIENT'} • ${demoProducts.length} prod • Profit: ${isUnlocked?'🔓':'🔒'}</span></div><div style="font-size:50px">${currentShop&&currentShop.is_admin?'👑':'📊'}</div></section>
   <div class="stats">
-    <section class="card"><div>📦 My Stock Value</div><div style="font-size:20px;font-weight:800;margin:8px 0">${money(demoProducts.reduce((s,p)=>s+p.quantity*p.cost,0))}</div><div style="color:var(--muted);font-size:11px">ONLY Shop #${currentShop?currentShop.id:''}</div></section>
-    <section class="card"><div>🛒 My Sales</div><div style="font-size:20px;font-weight:800;margin:8px 0">${money(demoSales.reduce((s,x)=>s+x.amount,0))}</div><div style="color:var(--muted);font-size:11px">ONLY your sales</div></section>
-    <section class="card"><div>💰 My Debts</div><div style="font-size:20px;font-weight:800;margin:8px 0">${money(demoDebts.reduce((s,d)=>s+d.amount,0))}</div><div style="color:var(--muted);font-size:11px">ONLY your customers</div></section>
-    <section class="card"><div>⚠️ Low Stock</div><div style="font-size:20px;font-weight:800;margin:8px 0">${demoProducts.filter(p=>p.quantity<=5).length}</div><div style="color:var(--muted);font-size:11px">Needs reorder</div></section>
+    <section class="card" style="background:linear-gradient(135deg,#087443,#13834d);color:#fff"><div>🛒 Today Sales</div><div style="font-size:20px;font-weight:800;margin:8px 0">${money(todaySalesAmount)}</div><div style="font-size:11px;opacity:.8">${todaySales.length} sales • Shop #${currentShop?currentShop.id:''}</div></section>
+    <section class="card" style="background:${isUnlocked?'linear-gradient(135deg,#064e32,#0a7a45)':'#eee'};color:${isUnlocked?'#fff':'#888'}"><div>💰 Today Profit ${isUnlocked?'':'🔒'}</div><div style="font-size:20px;font-weight:800;margin:8px 0">${isUnlocked?money(todayProfit):'•••••'}</div><div style="font-size:11px;opacity:.8">${isUnlocked?'Sales - Cost':'Unlock in Settings'}</div></section>
+    <section class="card"><div>📦 Stock Value</div><div style="font-size:18px;font-weight:800;margin:8px 0">${money(demoProducts.reduce((s,p)=>s+p.quantity*p.cost,0))}</div><div style="color:var(--muted);font-size:11px">Shop #${currentShop?currentShop.id:''}</div></section>
+    <section class="card"><div>💵 Total Profit ${isUnlocked?'':'🔒'}</div><div style="font-size:18px;font-weight:800;margin:8px 0;color:${isUnlocked?'var(--green)':'#888'}">${isUnlocked?money(totalProfit):'•••••'}</div><div style="color:var(--muted);font-size:11px">All time • Only your shop</div></section>
   </div>
-  ${card("My Recent Sales - ONLY MY SHOP",`<div class="table-wrap"><table><thead><tr><th>Date</th><th>Product</th><th>Qty</th><th>Amount</th><th>Pay</th></tr></thead><tbody>${demoSales.slice(0,5).map(s=>`<tr><td>${s.date}</td><td>${escapeHTML(s.product)}</td><td>${s.quantity} ${escapeHTML(s.unit)}</td><td>${money(s.amount)}</td><td><span class="pill">${escapeHTML(s.payment)}</span></td></tr>`).join("")||`<tr><td colspan="5">No sales - only your shop_id ${currentShop?currentShop.id:''}</td></tr>`}</tbody></table></div>`)}`;
+  ${card("My Sales Today - Profit Hidden Until PIN",`<div class="table-wrap"><table><thead><tr><th>Product</th><th>Qty</th><th>Amount</th><th>Profit</th><th>Pay</th></tr></thead><tbody>${todaySales.map(s=>{
+    const prod=demoProducts.find(p=>p.name===s.product); let profit=0;
+    if(prod){ let cpu=prod.cost; if(prod.unit==='bags'&&s.unit==='kg') cpu=prod.cost/prod.bag_weight; if(prod.unit==='kg'&&s.unit==='bags') cpu=prod.cost*prod.bag_weight; profit=s.amount-(s.quantity*cpu); }
+    return `<tr><td>${escapeHTML(s.product)}</td><td>${s.quantity} ${escapeHTML(s.unit)}</td><td>${money(s.amount)}</td><td style="color:${isUnlocked?'#087443':'#ccc'};font-weight:700">${isUnlocked?money(profit):'•••••'}</td><td><span class="pill">${escapeHTML(s.payment)}</span></td></tr>`;
+  }).join("")||`<tr><td colspan="5" style="text-align:center;color:var(--muted)">No sales today - Shop #${currentShop?currentShop.id:''}</td></tr>`}</tbody></table></div><p style="font-size:11px;color:var(--muted);margin-top:8px">🔒 Profit visible only after entering Profit PIN in Settings → Owner only</p>`)}`;
 }
 function renderProducts(){
   const filtered=demoProducts.filter(p=>(!productFilter||p.category===productFilter)&&p.name.toLowerCase().includes(searchTerm.toLowerCase()));
-  return `<h2>Products — ${escapeHTML(currentShop?currentShop.name:'')} ${currentShop&&currentShop.is_admin?'👑':'🔒'} — ONLY MY SHOP</h2><div class="notice">Locked to Shop #${currentShop?currentShop.id:''} • Sales shown only for this shop_id • Manucho cannot see Farmgate</div>
-  <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap"><input class="field" id="product-search" placeholder="Search my products..." value="${escapeHTML(searchTerm)}" style="flex:1;min-width:150px"><select class="field" id="category-filter" style="min-width:140px"><option value="">All</option>${categories.map(([n])=>`<option value="${escapeHTML(n)}" ${productFilter===n?"selected":""}>${escapeHTML(n)}</option>`).join("")}</select><button class="primary" id="add-product-btn" type="button">＋ Add Product</button><button class="secondary" id="seed-btn" type="button">Seed 15 Demo</button></div>
-  <section class="card" id="add-product-panel" hidden><h3>Add Product — FREE TYPE — ONLY FOR SHOP #${currentShop?currentShop.id:''}</h3><form id="add-product-form"><div class="form-grid">
-  <label>Product name * (FREE TYPE)<input class="field" name="productName" required placeholder="Layers, Omena, Black Gold..."></label>
+  return `<h2>Products — ${escapeHTML(currentShop?currentShop.name:'')} 🔒 ONLY MY SHOP</h2><div class="notice">Shop #${currentShop?currentShop.id:''} • Only your products • Profit PIN protects profit</div>
+  <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap"><input class="field" id="product-search" placeholder="Search my products..." value="${escapeHTML(searchTerm)}" style="flex:1;min-width:150px"><select class="field" id="category-filter" style="min-width:140px"><option value="">All</option>${categories.map(([n])=>`<option value="${escapeHTML(n)}" ${productFilter===n?"selected":""}>${escapeHTML(n)}</option>`).join("")}</select><button class="primary" id="add-product-btn" type="button">＋ Add</button><button class="secondary" id="seed-btn" type="button">Seed 15 Demo</button></div>
+  <section class="card" id="add-product-panel" hidden><h3>Add Product — ONLY SHOP #${currentShop?currentShop.id:''}</h3><form id="add-product-form"><div class="form-grid">
+  <label>Product name *<input class="field" name="productName" required placeholder="Layers, Omena..."></label>
   <label>Category *<select class="field" name="category" required><option value="">Choose</option>${categories.map(([n])=>`<option value="${escapeHTML(n)}">${escapeHTML(n)}</option>`).join("")}</select></label>
   <label>Quantity *<input class="field" name="quantity" type="number" min="0" step="any" required></label>
-  <label>Store Unit *<select class="field" name="unit" id="unitSelect" required><option value="bags">Bags</option><option value="kg">Kg (loose)</option><option value="packets">Packets</option><option value="bottles">Bottles</option><option value="pieces">Pieces</option></select></label>
-  <label id="bagWeightLabel">Bag Weight (kg) *<select class="field" name="bag_weight" id="bagWeightSelect" required><option value="20">20 kg</option><option value="25">25 kg</option><option value="30">30 kg</option><option value="40">40 kg</option><option value="50" selected>50 kg</option><option value="70">70 kg</option><option value="90">90 kg</option><option value="100">100 kg</option></select></label>
+  <label>Store Unit *<select class="field" name="unit" id="unitSelect" required><option value="bags">Bags</option><option value="kg">Kg</option><option value="packets">Packets</option><option value="bottles">Bottles</option><option value="pieces">Pieces</option></select></label>
+  <label id="bagWeightLabel">Bag Weight *<select class="field" name="bag_weight" id="bagWeightSelect" required><option value="20">20 kg</option><option value="25">25 kg</option><option value="30">30 kg</option><option value="40">40 kg</option><option value="50" selected>50 kg</option><option value="70">70 kg</option><option value="90">90 kg</option><option value="100">100 kg</option></select></label>
   <label>Cost KSh *<input class="field" name="cost" type="number" min="0" step="0.01" required></label>
   <label>Price KSh *<input class="field" name="price" type="number" min="0" step="0.01" required></label>
-  </div><div style="margin-top:12px;display:flex;gap:8px"><button class="primary" type="submit">Save Live to Shop #${currentShop?currentShop.id:''}</button><button class="secondary" id="cancel-product-btn" type="button">Cancel</button></div><p id="product-form-message"></p></form></section>
-  <section class="card"><div style="display:flex;justify-content:space-between"><h3>Inventory — ONLY MY SHOP #${currentShop?currentShop.id:''}</h3><span class="pill">${filtered.length} products</span></div><div class="table-wrap"><table><thead><tr><th>Product</th><th>Qty</th><th>Bag Wt</th><th>Cost</th><th>Price</th><th>Value</th></tr></thead><tbody>${filtered.map(p=>`<tr><td><strong>${escapeHTML(p.name)}</strong><br><small style="color:var(--muted)">${escapeHTML(p.category)}</small></td><td>${p.quantity} ${escapeHTML(p.unit)}</td><td>${p.unit==='bags'?p.bag_weight+' kg':'-'}</td><td>${money(p.cost)}</td><td>${money(p.price)}</td><td>${money(p.quantity*p.cost)}</td></tr>`).join("")||`<tr><td colspan="6">No products - filtered by shop_id ${currentShop?currentShop.id:''}</td></tr>`}</tbody></table></div></section>`;
+  </div><div style="margin-top:12px;display:flex;gap:8px"><button class="primary" type="submit">Save to Shop #${currentShop?currentShop.id:''}</button><button class="secondary" id="cancel-product-btn" type="button">Cancel</button></div><p id="product-form-message"></p></form></section>
+  <section class="card"><div style="display:flex;justify-content:space-between"><h3>Inventory — ONLY SHOP #${currentShop?currentShop.id:''}</h3><span class="pill">${filtered.length} products</span></div><div class="table-wrap"><table><thead><tr><th>Product</th><th>Qty</th><th>Bag Wt</th><th>Cost</th><th>Price</th><th>Value</th></tr></thead><tbody>${filtered.map(p=>`<tr><td><strong>${escapeHTML(p.name)}</strong><br><small style="color:var(--muted)">${escapeHTML(p.category)}</small></td><td>${p.quantity} ${escapeHTML(p.unit)}</td><td>${p.unit==='bags'?p.bag_weight+' kg':'-'}</td><td>${money(p.cost)}</td><td>${money(p.price)}</td><td>${money(p.quantity*p.cost)}</td></tr>`).join("")||`<tr><td colspan="6">No products - Shop #${currentShop?currentShop.id:''}</td></tr>`}</tbody></table></div></section>`;
 }
 function renderSales(){
-  return `<h2>Sales — ${escapeHTML(currentShop?currentShop.name:'')} 🔒 — ONLY MY SHOP SALES</h2><div class="notice">Showing ONLY sales where shop_id = ${currentShop?currentShop.id:''} • Manucho cannot see Farmgate sales</div>
-  <section class="card"><h3>Record New Sale — ONLY FOR SHOP #${currentShop?currentShop.id:''}</h3><form id="sale-form"><div class="form-grid">
+  const isUnlocked = currentShop ? sessionStorage.getItem(`profit_unlocked_${currentShop.id}`)==='true' : false;
+  return `<h2>Sales — ${escapeHTML(currentShop?currentShop.name:'')} 🔒 ONLY MY SALES</h2><div class="notice">Shop #${currentShop?currentShop.id:''} • Profit ${isUnlocked?'🔓':'🔒 hidden - unlock in Settings'}</div>
+  <section class="card"><h3>Record New Sale — SHOP #${currentShop?currentShop.id:''}</h3><form id="sale-form"><div class="form-grid">
   <label>Product *<select class="field" name="saleProduct" id="saleProduct" required><option value="">Choose</option>${demoProducts.map(p=>`<option value="${p.id}">${escapeHTML(p.name)} — ${p.quantity} ${escapeHTML(p.unit)} ${p.unit==='bags'?'('+p.bag_weight+'kg)':''} @ ${money(p.price)}</option>`).join("")}</select></label>
-  <label>Sale Unit *<select class="field" name="saleUnit" id="saleUnit" required><option value="bags">Bags</option><option value="kg">Kgs (loose)</option></select><small id="bagInfo" style="color:var(--muted)"></small></label>
+  <label>Sale Unit *<select class="field" name="saleUnit" id="saleUnit" required><option value="bags">Bags</option><option value="kg">Kgs</option></select><small id="bagInfo" style="color:var(--muted)"></small></label>
   <label>Quantity *<input class="field" name="saleQty" id="saleQty" type="number" min="0.01" step="any" required><small id="calcPreview" style="color:var(--green);font-weight:700"></small></label>
   <label>Payment *<select class="field" name="salePay" required><option value="M-PESA">M-PESA</option><option value="Cash">Cash</option><option value="Credit">Credit</option><option value="Bank">Bank</option></select></label>
-  </div><div style="margin-top:12px"><button class="primary" type="submit">Record Sale Live to Shop #${currentShop?currentShop.id:''}</button></div><p id="sale-msg"></p></form></section>
-  <section class="card"><h3>My Sales — ONLY SHOP #${currentShop?currentShop.id:''} (Manucho sees only Manucho)</h3><div class="table-wrap"><table><thead><tr><th>Date</th><th>Product</th><th>Qty</th><th>Amount</th><th>Pay</th></tr></thead><tbody>${demoSales.map(s=>`<tr><td>${s.date}</td><td>${escapeHTML(s.product)}</td><td>${s.quantity} ${escapeHTML(s.unit)}</td><td>${money(s.amount)}</td><td><span class="pill">${escapeHTML(s.payment)}</span></td></tr>`).join("")||`<tr><td colspan="5">No sales yet - only your shop sales will show here</td></tr>`}</tbody></table></div></section>`;
+  </div><div style="margin-top:12px"><button class="primary" type="submit">Record Sale to Shop #${currentShop?currentShop.id:''}</button></div><p id="sale-msg"></p></form></section>
+  <section class="card"><h3>My Sales — ONLY SHOP #${currentShop?currentShop.id:''}</h3><div class="table-wrap"><table><thead><tr><th>Date</th><th>Product</th><th>Qty</th><th>Amount</th><th>Pay</th></tr></thead><tbody>${demoSales.map(s=>`<tr><td>${s.date}</td><td>${escapeHTML(s.product)}</td><td>${s.quantity} ${escapeHTML(s.unit)}</td><td>${money(s.amount)}</td><td><span class="pill">${escapeHTML(s.payment)}</span></td></tr>`).join("")||`<tr><td colspan="5">No sales yet</td></tr>`}</tbody></table></div></section>`;
 }
-function renderDebts(){return `<h2>Customers & Debts — ${escapeHTML(currentShop?currentShop.name:'')} 🔒 — ONLY MY CUSTOMERS</h2><div class="notice">Filtered by shop_id = ${currentShop?currentShop.id:''}</div><section class="card"><h3>Add Debt — ONLY FOR SHOP #${currentShop?currentShop.id:''}</h3><form id="debt-form"><div class="form-grid"><label>Name *<input class="field" name="custName" required></label><label>Phone<input class="field" name="custPhone"></label><label>Amount *<input class="field" name="custAmount" type="number" required></label></div><button class="primary" type="submit" style="margin-top:12px">Save Live to Shop #${currentShop?currentShop.id:''}</button><p id="debt-msg"></p></form></section><section class="card"><h3>My Outstanding Debts — ONLY SHOP #${currentShop?currentShop.id:''}</h3><div class="table-wrap"><table><thead><tr><th>Customer</th><th>Phone</th><th>Balance</th></tr></thead><tbody>${demoDebts.map(d=>`<tr><td>${escapeHTML(d.customer)}</td><td>${escapeHTML(d.phone||"")}</td><td>${money(d.amount)}</td></tr>`).join("")||`<tr><td colspan="3">No debts - only your shop</td></tr>`}</tbody></table></div></section>`;}
-
+function renderDebts(){return `<h2>Customers & Debts — ${escapeHTML(currentShop?currentShop.name:'')} 🔒 ONLY MY CUSTOMERS</h2><div class="notice">Shop #${currentShop?currentShop.id:''}</div><section class="card"><h3>Add Debt — SHOP #${currentShop?currentShop.id:''}</h3><form id="debt-form"><div class="form-grid"><label>Name *<input class="field" name="custName" required></label><label>Phone<input class="field" name="custPhone"></label><label>Amount *<input class="field" name="custAmount" type="number" required></label></div><button class="primary" type="submit" style="margin-top:12px">Save to Shop #${currentShop?currentShop.id:''}</button><p id="debt-msg"></p></form></section><section class="card"><h3>My Debts — SHOP #${currentShop?currentShop.id:''}</h3><div class="table-wrap"><table><thead><tr><th>Customer</th><th>Phone</th><th>Balance</th></tr></thead><tbody>${demoDebts.map(d=>`<tr><td>${escapeHTML(d.customer)}</td><td>${escapeHTML(d.phone||"")}</td><td>${money(d.amount)}</td></tr>`).join("")||`<tr><td colspan="3">No debts</td></tr>`}</tbody></table></div></section>`;}
 function renderSettings(){
   const isSuper = currentShop && currentShop.is_admin;
+  const {todayStr,todaySales,todaySalesAmount,todayProfit,totalProfit}=calcProfits();
+  const isUnlocked = currentShop ? sessionStorage.getItem(`profit_unlocked_${currentShop.id}`)==='true' : false;
   if(isSuper){
-    return `<h2>Settings — ${escapeHTML(currentShop?currentShop.name:'')} 👑 SUPER ADMIN</h2>
-    <div class="notice" style="background:#eaf7ef;border:1px solid #087443">👑 You are SUPER ADMIN — You see ALL shops KSh 2.6M, you can Deactivate, Delete, Reset password</div>
-    <section class="card" style="background:linear-gradient(110deg,#eaf7ef,#fff);border:2px solid #087443">
-      <h3>📊 Super Admin Page — YOU ONLY</h3>
-      <p style="font-size:13px">This link is ONLY for you — not for Manucho clients. Manucho clients will NEVER see this if they login.</p>
-      <a href="/admin.html" target="_blank" style="display:inline-block;background:var(--green);color:#fff;padding:11px 18px;border-radius:9px;text-decoration:none;font-weight:700">🔐 Open Super Admin (All Shops KSh 2.6M)</a>
-      <p style="font-size:11px;margin-top:8px">Manucho trying to open /admin.html will be blocked: "Access Denied - Only Farmgate"</p>
-    </section>
-    <section class="card"><h3>🔒 Change Super Admin Password — Eye Icon</h3>
-      <form id="change-pass-form"><div class="form-grid" style="grid-template-columns:1fr">
-        <label>Current Password *<div class="passInputWrap"><input class="field" id="currPass" type="password" required placeholder="Current"><button class="eyeBtn" type="button" data-target="currPass">👁️</button></div></label>
-        <label>New Password *<div class="passInputWrap"><input class="field" id="newPass" type="password" required placeholder="Mwea@2025!"><button class="eyeBtn" type="button" data-target="newPass">👁️</button></div></label>
-        <label>Confirm *<div class="passInputWrap"><input class="field" id="confirmPass" type="password" required placeholder="Repeat"><button class="eyeBtn" type="button" data-target="confirmPass">👁️</button></div></label>
-      </div><div style="margin-top:12px"><button class="primary" type="submit">💾 Save New Password</button></div><p id="changePassMsg"></p></form>
-    </section>`;
+    return `<h2>Settings — ${escapeHTML(currentShop.name)} 👑 SUPER ADMIN</h2>
+    <div class="notice" style="background:#eaf7ef;border:1px solid #087443">👑 SUPER ADMIN — See ALL shops, Profit PIN per shop managed here</div>
+    <section class="card" style="border:2px solid #087443"><h3>📊 Super Admin Page — YOU ONLY</h3><a href="/admin.html" target="_blank" style="display:inline-block;background:var(--green);color:#fff;padding:11px 18px;border-radius:9px;text-decoration:none;font-weight:700">🔐 Open Super Admin</a><p style="font-size:11px;margin-top:8px">Clients blocked from admin.html</p></section>
+    <section class="card"><h3>🔒 Change Super Admin Password</h3><form id="change-pass-form"><div class="form-grid" style="grid-template-columns:1fr"><label>Current Password<div class="passInputWrap"><input class="field" id="currPass" type="password" required><button class="eyeBtn" type="button" data-target="currPass">👁️</button></div></label><label>New Password<div class="passInputWrap"><input class="field" id="newPass" type="password" required><button class="eyeBtn" type="button" data-target="newPass">👁️</button></div></label><label>Confirm<div class="passInputWrap"><input class="field" id="confirmPass" type="password" required><button class="eyeBtn" type="button" data-target="confirmPass">👁️</button></div></label></div><button class="primary" type="submit" style="margin-top:12px">Save</button><p id="changePassMsg"></p></form></section>`;
   } else {
-    return `<h2>Settings — ${escapeHTML(currentShop?currentShop.name:'')} 🔒 — CLIENT SHOP</h2>
-    <div class="notice">🔒 You are CLIENT shop — You see ONLY your data (Shop #${currentShop?currentShop.id:''}) — You CANNOT see Farmgate KSh 2.6M super admin</div>
-    <section class="card" style="background:#f0faf4;border:2px solid #e1ebe5">
-      <h3>📊 My Shop Admin — This IS Your Admin (No Super Admin Link)</h3>
-      <p style="font-size:13px;color:var(--muted)">You asked "will it show only manucho shop admin sales?" YES — Dashboard, Products, Sales, Debts tabs show ONLY Shop #${currentShop?currentShop.id:''} sales. This page IS your admin. No need to open /admin.html — that is super admin for Farmgate only and you will be blocked.</p>
-      <div style="background:#fff;padding:10px;border-radius:8px;border:1px solid var(--border);margin-top:10px">
-        <strong>What you see:</strong><br>
-        ✅ Products: ONLY where shop_id = ${currentShop?currentShop.id:''}<br>
-        ✅ Sales: ONLY where shop_id = ${currentShop?currentShop.id:''}<br>
-        ✅ Debts: ONLY where shop_id = ${currentShop?currentShop.id:''}<br>
-        ❌ You CANNOT see Shops Control, Deactivate all, KSh 2.6M total
+    return `<h2>Settings — ${escapeHTML(currentShop.name)} 🔒 CLIENT MINI ADMIN</h2>
+    <div class="notice">Shop #${currentShop.id} • ONLY YOUR DATA • Profit hidden behind PIN — Owner only</div>
+
+    <section class="card" style="background:#f0faf4;border:2px solid #087443">
+      <h3>📊 My Business Summary — MINI ADMIN — ONLY MY SHOP</h3>
+      <p style="font-size:12px;color:var(--muted)">This is your mini admin page — Sales visible to workers, Profit visible only to owner with PIN</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+        <div style="background:#fff;padding:12px;border-radius:8px;border:1px solid var(--border)"><div style="font-size:11px;color:var(--muted)">Today Sales (${todayStr})</div><div style="font-size:18px;font-weight:800">${money(todaySalesAmount)}</div><small>${todaySales.length} sales today • Shop #${currentShop.id}</small></div>
+        <div style="background:#fff;padding:12px;border-radius:8px;border:1px solid var(--border)"><div style="font-size:11px;color:var(--muted)">Today Profit 🔒 Owner Only</div><div id="profitDisplay" style="font-size:18px;font-weight:800;color:${isUnlocked?'#087443':'#ccc'}">${isUnlocked?money(todayProfit):'•••••• KSh'}</div>
+        ${!isUnlocked?`<div style="margin-top:8px;display:flex;gap:6px"><div class="passInputWrap" style="flex:1"><input class="field" id="profitPinInput" type="password" placeholder="Enter Profit PIN" style="padding:8px"><button class="eyeBtn" type="button" data-target="profitPinInput">👁️</button></div><button class="primary" id="unlockProfitBtn" type="button" style="padding:8px 12px">Unlock</button></div><small id="pinMsg" style="color:#b83232"></small>`: `<small style="color:var(--green)">🔓 Unlocked • <button id="lockProfitBtn" type="button" style="border:0;background:transparent;color:var(--muted);text-decoration:underline;cursor:pointer">Lock</button></small>`}
+        </div>
+        <div style="background:#fff;padding:12px;border-radius:8px;border:1px solid var(--border)"><div style="font-size:11px;color:var(--muted)">Total Sales All Time</div><div style="font-size:18px;font-weight:800">${money(demoSales.reduce((s,x)=>s+x.amount,0))}</div><small>${demoSales.length} sales total</small></div>
+        <div style="background:#fff;padding:12px;border-radius:8px;border:1px solid var(--border)"><div style="font-size:11px;color:var(--muted)">Total Profit All Time 🔒</div><div style="font-size:18px;font-weight:800;color:${isUnlocked?'#087443':'#ccc'}">${isUnlocked?money(totalProfit):'••••••'}</div><small>${isUnlocked?'Sales - Cost':'Owner PIN required'}</small></div>
       </div>
-      <p style="font-size:11px;margin-top:10px;color:var(--muted)">If you try to open rack-kenya-ihb5.vercel.app/admin.html you will get "Access Denied - Only Farmgate"</p>
+      <div style="margin-top:12px;background:#fff;padding:10px;border-radius:8px;font-size:12px;border:1px solid var(--border)"><strong>Privacy:</strong> Workers see sales amount, but profit = Sales - Cost is hidden. Only owner knows Profit PIN.</div>
     </section>
-    <section class="card"><h3>🔒 Change My Shop Password — Eye Icon — ONLY MY SHOP</h3>
-      <form id="change-pass-form"><div class="form-grid" style="grid-template-columns:1fr">
-        <label>Current Password *<div class="passInputWrap"><input class="field" id="currPass" type="password" required placeholder="Current"><button class="eyeBtn" type="button" data-target="currPass">👁️</button></div></label>
-        <label>New Password *<div class="passInputWrap"><input class="field" id="newPass" type="password" required placeholder="e.g. Manucho@2025!"><button class="eyeBtn" type="button" data-target="newPass">👁️</button></div></label>
-        <label>Confirm *<div class="passInputWrap"><input class="field" id="confirmPass" type="password" required placeholder="Repeat"><button class="eyeBtn" type="button" data-target="confirmPass">👁️</button></div></label>
-      </div><div style="margin-top:12px"><button class="primary" type="submit">💾 Save New Password for Shop #${currentShop?currentShop.id:''}</button></div><p id="changePassMsg"></p></form>
-    </section>`;
+
+    <section class="card"><h3>🔒 Change Shop Password (workers use to enter shop)</h3><form id="change-pass-form"><div class="form-grid" style="grid-template-columns:1fr"><label>Current Shop Password<div class="passInputWrap"><input class="field" id="currPass" type="password" required><button class="eyeBtn" type="button" data-target="currPass">👁️</button></div></label><label>New Shop Password<div class="passInputWrap"><input class="field" id="newPass" type="password" required><button class="eyeBtn" type="button" data-target="newPass">👁️</button></div></label><label>Confirm<div class="passInputWrap"><input class="field" id="confirmPass" type="password" required><button class="eyeBtn" type="button" data-target="confirmPass">👁️</button></div></label></div><button class="primary" type="submit" style="margin-top:12px">Save Shop Password</button><p id="changePassMsg"></p></form></section>
+
+    <section class="card" style="border:2px solid #d4a017"><h3>💰 Change Profit PIN (Owner Only — Keep Secret From Workers)</h3><form id="change-profit-pin-form"><div class="form-grid" style="grid-template-columns:1fr"><label>Current Profit PIN<div class="passInputWrap"><input class="field" id="currProfitPin" type="password" required><button class="eyeBtn" type="button" data-target="currProfitPin">👁️</button></div></label><label>New Profit PIN (4-6 digits)<div class="passInputWrap"><input class="field" id="newProfitPin" type="password" required placeholder="e.g. 7788"><button class="eyeBtn" type="button" data-target="newProfitPin">👁️</button></div></label><label>Confirm Profit PIN<div class="passInputWrap"><input class="field" id="confirmProfitPin" type="password" required><button class="eyeBtn" type="button" data-target="confirmProfitPin">👁️</button></div></label></div><button class="primary" type="submit" style="margin-top:12px;background:#d4a017">Save Profit PIN — Secret</button><p id="changeProfitPinMsg"></p></form></section>`;
   }
 }
-
-function renderBasic(t,d){return `<h2>${t} — ${escapeHTML(currentShop?currentShop.name:'')} ${currentShop&&currentShop.is_admin?'👑':'🔒'}</h2><p style="color:var(--muted)">${d} — ONLY Shop #${currentShop?currentShop.id:''}</p><section class="card"><div class="empty">Planned next — Locked Shop #${currentShop?currentShop.id:''} ONLY</div></section>`;}
+function renderBasic(t,d){return `<h2>${t} — ${escapeHTML(currentShop?currentShop.name:'')} ${currentShop&&currentShop.is_admin?'👑':'🔒'}</h2><p style="color:var(--muted)">${d} — ONLY Shop #${currentShop?currentShop.id:''}</p><section class="card"><div class="empty">Planned next — Locked Shop #${currentShop?currentShop.id:''} ONLY • Profit PIN protected</div></section>`;}
 function render(){
   renderNavigation();
   const c=document.getElementById("main-content");
@@ -307,9 +318,9 @@ function render(){
     const {error:insErr}=await supa.from('sales').insert([{product_name:prod.name,quantity:qty,unit:sUnit,amount:amount,payment:pay,shop_id:currentShop.id}]);
     if(insErr){msg.textContent=insErr.message;msg.style.color="#b83232";return;}
     const newQty=prod.quantity-qtyToDeduct; const {error:upErr}=await supa.from('products').update({quantity:newQty}).eq('id',prodId);
-    if(upErr){msg.textContent=upErr.message;return;} msg.textContent=`✅ ${qty} ${sUnit} = ${money(amount)} Saved! ONLY for Shop #${currentShop.id}`; msg.style.color="#087443"; await loadAll();
+    if(upErr){msg.textContent=upErr.message;return;} msg.textContent=`✅ ${qty} ${sUnit} = ${money(amount)} Saved! Shop #${currentShop.id}`; msg.style.color="#087443"; await loadAll();
   });}
-  const debtForm=document.getElementById("debt-form"); if(debtForm){debtForm.addEventListener("submit",async e=>{e.preventDefault(); const fd=new FormData(debtForm); const name=String(fd.get("custName")||"").trim(); const phone=String(fd.get("custPhone")||"").trim(); const amount=Number(fd.get("custAmount")); const msg=document.getElementById("debt-msg"); if(!name||!amount){msg.textContent="Fill";return;} msg.textContent="Saving..."; const {error}=await supa.from('customers').insert([{name,phone,amount,shop_id:currentShop.id}]); if(error){msg.textContent=error.message;} else {msg.textContent="Saved ONLY for Shop #"+currentShop.id; await loadAll();}});}
+  const debtForm=document.getElementById("debt-form"); if(debtForm){debtForm.addEventListener("submit",async e=>{e.preventDefault(); const fd=new FormData(debtForm); const name=String(fd.get("custName")||"").trim(); const phone=String(fd.get("custPhone")||"").trim(); const amount=Number(fd.get("custAmount")); const msg=document.getElementById("debt-msg"); if(!name||!amount){msg.textContent="Fill";return;} msg.textContent="Saving..."; const {error}=await supa.from('customers').insert([{name,phone,amount,shop_id:currentShop.id}]); if(error){msg.textContent=error.message;} else {msg.textContent="Saved Shop #"+currentShop.id; await loadAll();}});}
   const changeForm=document.getElementById("change-pass-form");
   if(changeForm){
     changeForm.addEventListener("submit",async e=>{
@@ -325,13 +336,39 @@ function render(){
       if(data.password && data.password!==curr){msg.textContent="❌ Current wrong!"; msg.style.color="#b83232"; return;}
       const {error:upErr}=await supa.from('shops').update({password:newP}).eq('id',currentShop.id);
       if(upErr){msg.textContent=upErr.message; msg.style.color="#b83232"; return;}
-      msg.textContent=`✅ Password changed for Shop #${currentShop.id} — ${newP}`;
-      msg.style.color="#087443";
-      await renderShopList();
+      msg.textContent=`✅ Shop Password changed! New: ${newP} — Workers use this`; msg.style.color="#087443"; await renderShopList();
     });
   }
-  const logoutSet=document.getElementById("logoutFromSettings");
-  if(logoutSet){logoutSet.addEventListener("click",()=>{localStorage.removeItem('farmgate_current_shop'); currentShop=null; demoProducts=[]; demoSales=[]; demoDebts=[]; document.getElementById('loginOverlay').style.display='flex'; document.getElementById('passSection').style.display='none'; renderShopList();});}
+  const unlockBtn=document.getElementById("unlockProfitBtn");
+  if(unlockBtn){
+    unlockBtn.addEventListener("click",async()=>{
+      const pinInput=document.getElementById("profitPinInput"); const msg=document.getElementById("pinMsg");
+      const pin=pinInput?pinInput.value:''; if(!pin){msg.textContent='Enter Profit PIN'; return;}
+      msg.textContent='Checking...';
+      const {data,error}=await supa.from('shops').select('profit_pin').eq('id',currentShop.id).single();
+      if(error){msg.textContent=error.message; return;}
+      if((data.profit_pin||'')===pin){ sessionStorage.setItem(`profit_unlocked_${currentShop.id}`,'true'); render(); }
+      else { msg.textContent='❌ Wrong Profit PIN! Only owner knows it.'; }
+    });
+  }
+  const lockBtn=document.getElementById("lockProfitBtn");
+  if(lockBtn){ lockBtn.addEventListener("click",()=>{ sessionStorage.removeItem(`profit_unlocked_${currentShop.id}`); render(); }); }
+  const changeProfitForm=document.getElementById("change-profit-pin-form");
+  if(changeProfitForm){
+    changeProfitForm.addEventListener("submit",async e=>{
+      e.preventDefault();
+      const curr=document.getElementById("currProfitPin").value; const newPin=document.getElementById("newProfitPin").value; const conf=document.getElementById("confirmProfitPin").value;
+      const msg=document.getElementById("changeProfitPinMsg");
+      if(newPin!==conf){msg.textContent='❌ PINs dont match'; msg.style.color='#b83232'; return;}
+      if(newPin.length<4){msg.textContent='Min 4 chars'; msg.style.color='#b83232'; return;}
+      msg.textContent='Checking...'; msg.style.color='#718278';
+      const {data}=await supa.from('shops').select('profit_pin').eq('id',currentShop.id).single();
+      if(data && data.profit_pin && data.profit_pin!==curr){ msg.textContent='❌ Current Profit PIN wrong'; msg.style.color='#b83232'; return; }
+      const {error}=await supa.from('shops').update({profit_pin:newPin}).eq('id',currentShop.id);
+      if(error){msg.textContent=error.message; msg.style.color='#b83232';}
+      else {msg.textContent=`✅ Profit PIN changed! New: ${newPin} — Keep secret from workers`; msg.style.color='#087443'; sessionStorage.setItem(`profit_unlocked_${currentShop.id}`,'true');}
+    });
+  }
 }
 initLogin();
 </script></body></html>
