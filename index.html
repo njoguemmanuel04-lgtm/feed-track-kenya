@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#087443">
-  <meta name="description" content="FeedTrack Kenya helps agrovet shops manage stock, sales, customers, debts and business reports.">
+  <meta name="description" content="FeedTrack Kenya agrovet and farm supplies management.">
   <title>FeedTrack Kenya | Agrovet Management</title>
 
   <style>
@@ -18,9 +17,7 @@
       --muted: #718278;
       --border: #e1ebe5;
       --white: #fff;
-      --red: #c63e3e;
-      --orange: #c77715;
-      --blue: #2868ca;
+      --red: #b83232;
     }
 
     * { box-sizing: border-box; }
@@ -29,13 +26,15 @@
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 14px;
+      font: 14px Arial, Helvetica, sans-serif;
     }
 
     button, input, select { font: inherit; }
     button { cursor: pointer; }
-    button:focus-visible, input:focus-visible, select:focus-visible {
+
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
       outline: 2px solid var(--green);
       outline-offset: 2px;
     }
@@ -43,7 +42,7 @@
     .topbar {
       height: 72px;
       padding: 0 22px;
-      background: white;
+      background: #fff;
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
@@ -54,165 +53,477 @@
       z-index: 5;
     }
 
-    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
     .logo {
-      width: 43px; height: 43px; border-radius: 14px;
-      background: var(--light); display: grid; place-items: center;
+      width: 43px;
+      height: 43px;
+      border-radius: 14px;
+      background: var(--light);
+      display: grid;
+      place-items: center;
       font-size: 25px;
     }
-    .brand h1 { margin: 0; color: var(--dark); font-size: 21px; }
-    .brand p { margin: 4px 0 0; font-size: 11px; color: var(--muted); }
-    .shop-info { text-align: right; line-height: 1.6; }
-    .shop-info strong { display: block; }
-    .shop-info span { color: var(--muted); font-size: 12px; }
 
-    .layout { display: flex; min-height: calc(100vh - 72px); }
+    .brand h1 {
+      margin: 0;
+      color: var(--dark);
+      font-size: 21px;
+    }
+
+    .brand p {
+      margin: 4px 0 0;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .shop-info {
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    .shop-info strong { display: block; }
+
+    .shop-info span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .layout {
+      display: flex;
+      min-height: calc(100vh - 72px);
+    }
 
     .sidebar {
-      width: 218px; flex-shrink: 0; background: white;
-      border-right: 1px solid var(--border); padding: 20px 12px;
-      display: flex; flex-direction: column; gap: 5px;
+      width: 218px;
+      flex-shrink: 0;
+      background: #fff;
+      border-right: 1px solid var(--border);
+      padding: 20px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
     }
 
     .nav-btn {
-      width: 100%; border: 0; background: transparent;
-      padding: 13px 12px; border-radius: 10px; text-align: left;
-      color: #40594c; display: flex; gap: 11px; align-items: center;
+      width: 100%;
+      border: 0;
+      background: transparent;
+      padding: 13px 12px;
+      border-radius: 10px;
+      text-align: left;
+      color: #40594c;
+      display: flex;
+      gap: 11px;
+      align-items: center;
     }
-    .nav-btn:hover, .nav-btn.active {
-      background: var(--light); color: var(--green); font-weight: 700;
+
+    .nav-btn:hover,
+    .nav-btn.active {
+      background: var(--light);
+      color: var(--green);
+      font-weight: 700;
     }
-    .nav-icon { width: 22px; font-size: 18px; text-align: center; }
+
+    .nav-icon {
+      width: 22px;
+      font-size: 18px;
+      text-align: center;
+    }
+
     .sidebar-note {
-      margin-top: auto; padding: 14px; background: var(--light);
-      border-radius: 12px; line-height: 1.6; font-size: 12px;
+      margin-top: auto;
+      padding: 14px;
+      background: var(--light);
+      border-radius: 12px;
+      line-height: 1.6;
+      font-size: 12px;
     }
+
     .sidebar-note strong { color: var(--dark); }
 
-    main { flex: 1; min-width: 0; padding: 22px; }
+    main {
+      flex: 1;
+      min-width: 0;
+      padding: 22px;
+    }
 
     .welcome {
-      border-radius: 16px; padding: 25px;
-      color: white; margin-bottom: 20px;
+      border-radius: 16px;
+      padding: 25px;
+      color: #fff;
+      margin-bottom: 20px;
       background: linear-gradient(110deg, #075b3a, #13834d);
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 16px; overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      overflow: hidden;
     }
-    .welcome h2 { font-size: 25px; margin: 0 0 9px; }
-    .welcome p { margin: 0; line-height: 1.7; opacity: .92; }
+
+    .welcome h2 {
+      font-size: 25px;
+      margin: 0 0 9px;
+    }
+
+    .welcome p {
+      margin: 0;
+      line-height: 1.7;
+      opacity: .92;
+    }
+
     .welcome-icon { font-size: 52px; }
 
     .demo {
-      display: inline-block; margin-top: 12px; padding: 6px 9px;
-      border: 1px solid #ffffff70; border-radius: 7px; font-size: 11px;
+      display: inline-block;
+      margin-top: 12px;
+      padding: 6px 9px;
+      border: 1px solid #ffffff70;
+      border-radius: 7px;
+      font-size: 11px;
     }
 
     .stats {
-      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 13px; margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 13px;
+      margin-bottom: 20px;
     }
+
     .card {
-      background: white; border: 1px solid var(--border);
-      border-radius: 13px; padding: 17px; min-width: 0;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 17px;
+      min-width: 0;
     }
-    .stat-label { color: var(--muted); font-size: 12px; }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
     .stat-icon {
-      display: grid; place-items: center; width: 37px; height: 37px;
-      border-radius: 11px; background: var(--light); margin-bottom: 13px;
+      display: grid;
+      place-items: center;
+      width: 37px;
+      height: 37px;
+      border-radius: 11px;
+      background: var(--light);
+      margin-bottom: 13px;
       font-size: 19px;
     }
-    .stat-value { font-size: clamp(17px, 2vw, 23px); font-weight: 800; margin: 8px 0; overflow-wrap: anywhere; }
-    .stat-foot { color: var(--muted); font-size: 11px; }
+
+    .stat-value {
+      font-size: clamp(17px, 2vw, 23px);
+      font-weight: 800;
+      margin: 8px 0;
+      overflow-wrap: anywhere;
+    }
+
+    .stat-foot {
+      color: var(--muted);
+      font-size: 11px;
+    }
 
     .content-grid {
-      display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(250px, 1fr);
-      gap: 16px; align-items: start;
+      display: grid;
+      grid-template-columns: minmax(0, 1.8fr) minmax(250px, 1fr);
+      gap: 16px;
+      align-items: start;
     }
-    .stack { display: flex; flex-direction: column; gap: 16px; }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
     .card-heading {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 10px; margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 16px;
     }
-    .card-heading h3 { font-size: 16px; margin: 0; }
-    .subtext { color: var(--muted); font-size: 12px; margin-top: 5px; }
-    .text-btn { background: none; border: 0; color: var(--green); font-weight: 700; font-size: 12px; }
+
+    .card-heading h3 {
+      font-size: 16px;
+      margin: 0;
+    }
+
+    .subtext {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 5px;
+      line-height: 1.6;
+    }
+
+    .text-btn {
+      background: none;
+      border: 0;
+      color: var(--green);
+      font-weight: 700;
+      font-size: 12px;
+    }
 
     .categories {
-      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 9px;
     }
+
     .category {
-      border: 1px solid var(--border); background: #fff; border-radius: 10px;
-      padding: 13px 7px; text-align: center; color: var(--text);
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 10px;
+      padding: 13px 7px;
+      text-align: center;
+      color: var(--text);
     }
-    .category:hover { border-color: var(--green); background: #f7fcf8; }
-    .category span { display: block; font-size: 25px; margin-bottom: 8px; }
-    .category strong { font-size: 11px; display: block; }
-    .category small { display: block; color: var(--muted); margin-top: 6px; }
+
+    .category:hover {
+      border-color: var(--green);
+      background: #f7fcf8;
+    }
+
+    .category span {
+      display: block;
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    .category strong {
+      font-size: 11px;
+      display: block;
+    }
+
+    .category small {
+      display: block;
+      color: var(--muted);
+      margin-top: 6px;
+    }
 
     .quick-action {
-      display: flex; width: 100%; align-items: center; gap: 12px;
-      padding: 12px; border: 1px solid var(--border); border-radius: 10px;
-      background: white; text-align: left; margin-bottom: 9px;
+      display: flex;
+      width: 100%;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fff;
+      text-align: left;
+      margin-bottom: 9px;
     }
+
     .quick-action:last-child { margin-bottom: 0; }
     .quick-action:hover { background: var(--light); }
+
     .action-icon {
-      width: 39px; height: 39px; flex-shrink: 0; display: grid;
-      place-items: center; border-radius: 10px; background: var(--light);
+      width: 39px;
+      height: 39px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: var(--light);
       font-size: 19px;
     }
-    .quick-action strong { display: block; margin-bottom: 5px; }
+
+    .quick-action strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
     .quick-action small { color: var(--muted); }
 
     .alert {
-      padding: 11px 0; border-bottom: 1px solid var(--border);
-      display: flex; align-items: start; gap: 9px; line-height: 1.5;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: start;
+      gap: 9px;
+      line-height: 1.5;
     }
+
     .alert:last-child { border-bottom: 0; }
     .alert-icon { color: var(--red); font-size: 17px; }
-    .alert strong { display: block; font-size: 12px; }
+
+    .alert strong {
+      display: block;
+      font-size: 12px;
+    }
+
     .alert small { color: var(--muted); }
 
     .table-wrap { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; white-space: nowrap; }
-    th, td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--border); font-size: 12px; }
-    th { background: #f7faf8; color: var(--muted); font-weight: 600; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      white-space: nowrap;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+    }
+
+    th {
+      background: #f7faf8;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
     tr:last-child td { border-bottom: 0; }
-    .pill { display: inline-block; padding: 5px 8px; border-radius: 20px; background: var(--light); color: var(--green); font-size: 10px; }
 
-    .bar-chart { display: flex; align-items: end; gap: 12px; height: 145px; padding: 12px 5px 0; border-bottom: 1px solid var(--border); }
-    .bar-item { flex: 1; height: 100%; display: flex; flex-direction: column; justify-content: end; align-items: center; gap: 7px; min-width: 0; }
-    .bar { width: min(36px, 85%); border-radius: 5px 5px 0 0; background: #15965b; min-height: 5px; }
-    .bar-item small { font-size: 10px; color: var(--muted); }
+    .pill {
+      display: inline-block;
+      padding: 5px 8px;
+      border-radius: 20px;
+      background: var(--light);
+      color: var(--green);
+      font-size: 10px;
+    }
 
-    .empty { color: var(--muted); text-align: center; padding: 25px 8px; line-height: 1.7; }
+    .empty {
+      color: var(--muted);
+      text-align: center;
+      padding: 25px 8px;
+      line-height: 1.7;
+    }
+
     .primary {
-      background: var(--green); color: white; border: 0; border-radius: 9px;
-      padding: 11px 15px; font-weight: 700;
-    }
-    .primary:hover { background: var(--dark); }
-    .secondary {
-      background: white; color: var(--green); border: 1px solid var(--border);
-      border-radius: 9px; padding: 10px 13px; font-weight: 700;
+      background: var(--green);
+      color: #fff;
+      border: 0;
+      border-radius: 9px;
+      padding: 11px 15px;
+      font-weight: 700;
     }
 
-    .page-title { margin: 0 0 6px; font-size: 24px; }
-    .page-description { color: var(--muted); margin: 0 0 20px; line-height: 1.6; }
-    .toolbar { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 15px; }
-    .field {
-      width: 100%; border: 1px solid #cfddd4; border-radius: 8px;
-      padding: 11px; background: white; color: var(--text);
+    .primary:hover { background: var(--dark); }
+
+    .secondary {
+      background: #fff;
+      color: var(--green);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 10px 13px;
+      font-weight: 700;
     }
-    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
-    .form-grid label { display: block; font-size: 12px; font-weight: 700; }
-    .form-grid input, .form-grid select { display: block; margin-top: 7px; }
-    .form-actions { display: flex; gap: 9px; margin-top: 16px; }
-    .notice { background: #fff7e8; color: #85530d; padding: 12px; border-radius: 9px; line-height: 1.6; margin-bottom: 15px; font-size: 12px; }
+
+    .page-title {
+      margin: 0 0 6px;
+      font-size: 24px;
+    }
+
+    .page-description {
+      color: var(--muted);
+      margin: 0 0 20px;
+      line-height: 1.6;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-bottom: 15px;
+    }
+
+    .field {
+      width: 100%;
+      border: 1px solid #cfddd4;
+      border-radius: 8px;
+      padding: 11px;
+      background: #fff;
+      color: var(--text);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px;
+    }
+
+    .form-grid label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .form-grid input,
+    .form-grid select {
+      display: block;
+      margin-top: 7px;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .notice {
+      background: #fff7e8;
+      color: #85530d;
+      padding: 12px;
+      border-radius: 9px;
+      line-height: 1.6;
+      margin-bottom: 15px;
+      font-size: 12px;
+    }
+
+    .bar-chart {
+      display: flex;
+      align-items: end;
+      gap: 12px;
+      height: 145px;
+      padding: 12px 5px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .bar-item {
+      flex: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      align-items: center;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .bar {
+      width: min(36px, 85%);
+      border-radius: 5px 5px 0 0;
+      background: #15965b;
+      min-height: 5px;
+    }
+
+    .bar-item small {
+      font-size: 10px;
+      color: var(--muted);
+    }
 
     footer {
-      padding: 18px 22px; background: white; border-top: 1px solid var(--border);
-      display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
-      color: var(--muted); font-size: 11px;
+      padding: 18px 22px;
+      background: #fff;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 11px;
     }
 
     .mobile-nav { display: none; }
@@ -240,19 +551,44 @@
       .card { padding: 13px; }
       .stat-value { font-size: 18px; }
       .categories { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
       .mobile-nav {
-        display: flex; position: fixed; bottom: 0; left: 0; right: 0;
-        z-index: 10; background: white; border-top: 1px solid var(--border);
-        justify-content: space-around; padding: 7px 3px calc(7px + env(safe-area-inset-bottom));
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        background: #fff;
+        border-top: 1px solid var(--border);
+        justify-content: space-around;
+        padding: 7px 3px calc(7px + env(safe-area-inset-bottom));
       }
+
       .mobile-nav button {
-        border: 0; background: transparent; color: var(--muted);
-        padding: 5px 7px; font-size: 10px; min-width: 48px;
+        border: 0;
+        background: transparent;
+        color: var(--muted);
+        padding: 5px 7px;
+        font-size: 10px;
+        min-width: 48px;
       }
-      .mobile-nav button span { display: block; font-size: 19px; margin-bottom: 3px; }
-      .mobile-nav button.active { color: var(--green); font-weight: 700; }
+
+      .mobile-nav button span {
+        display: block;
+        font-size: 19px;
+        margin-bottom: 3px;
+      }
+
+      .mobile-nav button.active {
+        color: var(--green);
+        font-weight: 700;
+      }
+
       .form-grid { grid-template-columns: minmax(0, 1fr); }
       footer { padding: 15px; }
+      .toolbar .field { min-width: 100% !important; }
+      .toolbar button { width: 100%; }
     }
   </style>
 </head>
@@ -268,7 +604,7 @@
     </div>
     <div class="shop-info">
       <strong id="shop-name">My Agrovet</strong>
-      <span>Shop management workspace</span>
+      <span>Demo workspace · Not logged in</span>
     </div>
   </header>
 
@@ -288,329 +624,677 @@
 
   <footer>
     <span><strong>FeedTrack Kenya</strong> · Agrovet Management</span>
-    <span>Built for Kenyan farming businesses</span>
+    <span>Demo preview · Supabase not connected</span>
   </footer>
 
-  <script>
-    "use strict";
+<script>
+"use strict";
 
-    // DEMO ONLY: These figures are sample data, not saved business records.
-    // The demo uses no database and does not create real user accounts.
+// DEMO ONLY:
+// Sample records are held in JavaScript memory.
+// Refreshing the page clears products added during this session.
+// Authentication and Supabase are not connected yet.
 
-    const demoProducts = [
-      { id: 1, name: "Dairy Meal", category: "Animal Feeds", quantity: 45, unit: "bags", cost: 2200, price: 2600 },
-      { id: 2, name: "Chick Mash", category: "Animal Feeds", quantity: 4, unit: "bags", cost: 2800, price: 3200 },
-      { id: 3, name: "NPK Fertilizer", category: "Fertilizers", quantity: 28, unit: "bags", cost: 4500, price: 5000 },
-      { id: 4, name: "Poultry Starter", category: "Animal Feeds", quantity: 2, unit: "bags", cost: 2600, price: 3000 },
-      { id: 5, name: "Maize Seeds", category: "Seeds", quantity: 5, unit: "packets", cost: 1200, price: 1500 },
-      { id: 6, name: "Dewormer", category: "Veterinary Products", quantity: 12, unit: "bottles", cost: 1800, price: 2200 },
-      { id: 7, name: "Herbicide", category: "Pesticides", quantity: 18, unit: "bottles", cost: 900, price: 1200 }
-    ];
+const demoProducts = [
+  {id:1,name:"Dairy Meal",category:"Animal Feeds",quantity:45,unit:"bags",cost:2200,price:2600},
+  {id:2,name:"Chick Mash",category:"Animal Feeds",quantity:4,unit:"bags",cost:2800,price:3200},
+  {id:3,name:"NPK Fertilizer",category:"Fertilizers",quantity:28,unit:"bags",cost:4500,price:5000},
+  {id:4,name:"Poultry Starter",category:"Animal Feeds",quantity:2,unit:"bags",cost:2600,price:3000},
+  {id:5,name:"Maize Seeds",category:"Seeds",quantity:5,unit:"packets",cost:1200,price:1500},
+  {id:6,name:"Dewormer",category:"Veterinary Products",quantity:12,unit:"bottles",cost:1800,price:2200},
+  {id:7,name:"Herbicide",category:"Pesticides",quantity:18,unit:"bottles",cost:900,price:1200}
+];
 
-    const demoSales = [
-      { date: "Today", product: "Dairy Meal", quantity: 3, unit: "bags", amount: 7800, payment: "M-PESA" },
-      { date: "Today", product: "Chick Mash", quantity: 2, unit: "bags", amount: 6400, payment: "Cash" },
-      { date: "Yesterday", product: "NPK Fertilizer", quantity: 2, unit: "bags", amount: 10000, payment: "M-PESA" }
-    ];
+const demoSales = [
+  {date:"Today",product:"Dairy Meal",quantity:3,unit:"bags",amount:7800,payment:"M-PESA"},
+  {date:"Today",product:"Chick Mash",quantity:2,unit:"bags",amount:6400,payment:"Cash"},
+  {date:"Yesterday",product:"NPK Fertilizer",quantity:2,unit:"bags",amount:10000,payment:"M-PESA"}
+];
 
-    const demoDebts = [
-      { customer: "Sample Customer A", amount: 8500 },
-      { customer: "Sample Customer B", amount: 4200 },
-      { customer: "Sample Customer C", amount: 6700 }
-    ];
+const demoDebts = [
+  {customer:"Sample Customer A",amount:8500},
+  {customer:"Sample Customer B",amount:4200},
+  {customer:"Sample Customer C",amount:6700}
+];
 
-    const categories = [
-      ["Animal Feeds", "🌾"],
-      ["Seeds", "🌱"],
-      ["Fertilizers", "🪴"],
-      ["Pesticides", "🧴"],
-      ["Veterinary Products", "🐄"],
-      ["Farming Equipment", "🛠️"]
-    ];
+const categories = [
+  ["Animal Feeds","🌾"],
+  ["Seeds","🌱"],
+  ["Fertilizers","🪴"],
+  ["Pesticides","🧴"],
+  ["Veterinary Products","🐄"],
+  ["Farming Equipment","🛠️"]
+];
 
-    const navItems = [
-      ["Dashboard", "⌂"],
-      ["Products", "▦"],
-      ["Stock", "📦"],
-      ["Sales", "🛒"],
-      ["Customers / Debts", "👥"],
-      ["Suppliers", "🚚"],
-      ["Expenses", "💳"],
-      ["Reports", "▤"],
-      ["Staff", "♙"],
-      ["Settings", "⚙"]
-    ];
+const navItems = [
+  ["Dashboard","⌂"],
+  ["Products","▦"],
+  ["Stock","📦"],
+  ["Sales","🛒"],
+  ["Customers / Debts","👥"],
+  ["Suppliers","🚚"],
+  ["Expenses","💳"],
+  ["Reports","▤"],
+  ["Staff","♙"],
+  ["Settings","⚙"]
+];
 
-    let currentPage = "Dashboard";
-    let productFilter = "";
-    let searchTerm = "";
+let currentPage = "Dashboard";
+let productFilter = "";
+let searchTerm = "";
 
-    const money = amount => "KSh " + Number(amount).toLocaleString("en-KE");
-    const escapeHTML = value => String(value).replace(/[&<>"']/g, c => ({
-      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-    })[c]);
+const money = amount =>
+  "KSh " + Number(amount).toLocaleString("en-KE", {maximumFractionDigits:2});
 
-    function renderNavigation() {
-      const makeButtons = mobile => navItems.map(([name, icon]) => {
-        if (mobile && !["Dashboard", "Products", "Sales", "Customers / Debts", "Settings"].includes(name)) return "";
-        const label = name === "Customers / Debts" ? "Debts" : name;
-        return `<button class="nav-btn ${currentPage === name ? "active" : ""}" data-page="${name}">
-          <span class="nav-icon">${icon}</span><span>${mobile ? label : name}</span>
+const escapeHTML = value =>
+  String(value).replace(/[&<>"']/g, c => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[c]);
+
+function renderNavigation() {
+  const makeButtons = mobile => navItems.map(([name, icon]) => {
+    if (
+      mobile &&
+      !["Dashboard","Products","Sales","Customers / Debts","Settings"].includes(name)
+    ) return "";
+
+    const label = name === "Customers / Debts" ? "Debts" : name;
+
+    if (mobile) {
+      return `
+        <button class="mobile-btn ${currentPage === name ? "active" : ""}"
+          data-page="${name}" type="button">
+          <span>${icon}</span>${label}
         </button>`;
-      }).join("");
-
-      document.getElementById("side-nav").innerHTML = makeButtons(false);
-      document.getElementById("mobile-nav").innerHTML = makeButtons(true).replaceAll("nav-btn", "mobile-btn");
-
-      document.querySelectorAll("[data-page]").forEach(button => {
-        button.addEventListener("click", () => {
-          currentPage = button.dataset.page;
-          render();
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-      });
     }
 
-    function card(title, content, extra = "") {
-      return `<section class="card ${extra}"><div class="card-heading"><h3>${title}</h3></div>${content}</section>`;
-    }
+    return `
+      <button class="nav-btn ${currentPage === name ? "active" : ""}"
+        data-page="${name}" type="button">
+        <span class="nav-icon">${icon}</span><span>${name}</span>
+      </button>`;
+  }).join("");
 
-    function renderDashboard() {
-      const stockValue = demoProducts.reduce((sum, p) => sum + p.quantity * p.cost, 0);
-      const todaySales = demoSales.filter(s => s.date === "Today").reduce((sum, s) => sum + s.amount, 0);
-      const debts = demoDebts.reduce((sum, d) => sum + d.amount, 0);
-      const lowStock = demoProducts.filter(p => p.quantity <= 5);
+  document.getElementById("side-nav").innerHTML = makeButtons(false);
+  document.getElementById("mobile-nav").innerHTML = makeButtons(true);
 
-      return `
-        <section class="welcome">
-          <div>
-            <h2>Welcome to FeedTrack Kenya 🌿</h2>
-            <p>Your agrovet, your stock, your business — managed in one place.</p>
-            <span class="demo">DEMO PREVIEW · Sample figures only</span>
-          </div>
-          <div class="welcome-icon">🌾🐄</div>
-        </section>
+  document.querySelectorAll("[data-page]").forEach(button => {
+    button.addEventListener("click", () => {
+      currentPage = button.dataset.page;
+      searchTerm = "";
+      productFilter = "";
+      render();
+      window.scrollTo({top:0, behavior:"smooth"});
+    });
+  });
+}
 
-        <div class="stats">
-          <section class="card">
-            <div class="stat-icon">📦</div><div class="stat-label">Stock purchase value</div>
-            <div class="stat-value">${money(stockValue)}</div><div class="stat-foot">Based on demo quantities and costs</div>
-          </section>
-          <section class="card">
-            <div class="stat-icon">🛒</div><div class="stat-label">Today's demo sales</div>
-            <div class="stat-value">${money(todaySales)}</div><div class="stat-foot">Sample transactions only</div>
-          </section>
-          <section class="card">
-            <div class="stat-icon">💰</div><div class="stat-label">Outstanding demo debts</div>
-            <div class="stat-value">${money(debts)}</div><div class="stat-foot">${demoDebts.length} sample customers</div>
-          </section>
-          <section class="card">
-            <div class="stat-icon">⚠️</div><div class="stat-label">Low-stock products</div>
-            <div class="stat-value">${lowStock.length}</div><div class="stat-foot">Review products needing restock</div>
-          </section>
-        </div>
+function card(title, content) {
+  return `
+    <section class="card">
+      <div class="card-heading"><h3>${title}</h3></div>
+      ${content}
+    </section>`;
+}
 
-        <div class="content-grid">
-          <div class="stack">
-            ${card("Product categories", `<div class="categories">${categories.map(([name, icon]) => `
-              <button class="category" data-category="${escapeHTML(name)}">
-                <span>${icon}</span><strong>${escapeHTML(name)}</strong>
+function renderDashboard() {
+  const stockValue = demoProducts.reduce(
+    (sum, p) => sum + p.quantity * p.cost, 0
+  );
+
+  const todaySales = demoSales
+    .filter(s => s.date === "Today")
+    .reduce((sum, s) => sum + s.amount, 0);
+
+  const debts = demoDebts.reduce((sum, d) => sum + d.amount, 0);
+  const lowStock = demoProducts.filter(p => p.quantity <= 5);
+
+  return `
+    <section class="welcome">
+      <div>
+        <h2>Welcome to FeedTrack Kenya 🌿</h2>
+        <p>Your agrovet, your stock, your business — managed in one place.</p>
+        <span class="demo">DEMO PREVIEW · Sample figures only</span>
+      </div>
+      <div class="welcome-icon">🌾🐄</div>
+    </section>
+
+    <div class="stats">
+      <section class="card">
+        <div class="stat-icon">📦</div>
+        <div class="stat-label">Stock purchase value</div>
+        <div class="stat-value">${money(stockValue)}</div>
+        <div class="stat-foot">Sample inventory costs</div>
+      </section>
+
+      <section class="card">
+        <div class="stat-icon">🛒</div>
+        <div class="stat-label">Today's demo sales</div>
+        <div class="stat-value">${money(todaySales)}</div>
+        <div class="stat-foot">Sample transactions only</div>
+      </section>
+
+      <section class="card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-label">Outstanding demo debts</div>
+        <div class="stat-value">${money(debts)}</div>
+        <div class="stat-foot">${demoDebts.length} sample customers</div>
+      </section>
+
+      <section class="card">
+        <div class="stat-icon">⚠️</div>
+        <div class="stat-label">Low-stock products</div>
+        <div class="stat-value">${lowStock.length}</div>
+        <div class="stat-foot">Demo items with 5 or fewer units</div>
+      </section>
+    </div>
+
+    <div class="content-grid">
+      <div class="stack">
+        ${card("Product categories", `
+          <div class="categories">
+            ${categories.map(([name, icon]) => `
+              <button class="category" data-category="${escapeHTML(name)}" type="button">
+                <span>${icon}</span>
+                <strong>${escapeHTML(name)}</strong>
                 <small>${demoProducts.filter(p => p.category === name).length} demo products</small>
-              </button>`).join("")}</div>`)}
+              </button>
+            `).join("")}
+          </div>
+        `)}
 
-            ${card("Sales overview", `
-              <div class="subtext">Illustrative sales activity — not connected to live transactions.</div>
-              <div class="bar-chart">
-                ${[38, 57, 45, 75, 52, 88, 65].map((height, i) => `
-                  <div class="bar-item"><div class="bar" style="height:${height}%"></div><small>${["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][i]}</small></div>
-                `).join("")}
+        ${card("Sales overview", `
+          <div class="subtext">Illustrative activity, not live sales data.</div>
+          <div class="bar-chart">
+            ${[38,57,45,75,52,88,65].map((height, i) => `
+              <div class="bar-item">
+                <div class="bar" style="height:${height}%"></div>
+                <small>${["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][i]}</small>
               </div>
-            `)}
-
-            ${card("Recent demo sales", `
-              <div class="table-wrap"><table>
-                <thead><tr><th>Date</th><th>Product</th><th>Qty</th><th>Amount</th><th>Payment</th></tr></thead>
-                <tbody>${demoSales.map(s => `<tr>
-                  <td>${s.date}</td><td>${escapeHTML(s.product)}</td>
-                  <td>${s.quantity} ${escapeHTML(s.unit)}</td><td>${money(s.amount)}</td>
-                  <td><span class="pill">${escapeHTML(s.payment)}</span></td>
-                </tr>`).join("")}</tbody>
-              </table></div>
-            `)}
+            `).join("")}
           </div>
+        `)}
 
-          <div class="stack">
-            ${card("Quick actions", `
-              ${[
-                ["🛒", "Record a sale", "Add a customer transaction", "Sales"],
-                ["📦", "Manage products", "Add or update stock", "Products"],
-                ["👥", "Customer debts", "Review credit balances", "Customers / Debts"],
-                ["📊", "View reports", "Review business activity", "Reports"]
-              ].map(([icon, title, desc, page]) => `
-                <button class="quick-action" data-page="${page}">
-                  <span class="action-icon">${icon}</span>
-                  <span><strong>${title}</strong><small>${desc}</small></span>
-                </button>`).join("")}
-            `)}
-
-            ${card("Low-stock alerts", lowStock.length ? lowStock.map(p => `
-              <div class="alert"><span class="alert-icon">⚠</span><div>
-                <strong>${escapeHTML(p.name)}</strong><small>Only ${p.quantity} ${escapeHTML(p.unit)} left in demo stock</small>
-              </div></div>
-            `).join("") : `<div class="empty">No low-stock items.</div>`)}
-
-            ${card("About this preview", `
-              <p class="subtext" style="line-height:1.8">
-                This is the first design stage. Product edits and transactions are not saved yet.
-                Supabase authentication, real records, and private owner/admin dashboards come next.
-              </p>
-            `)}
+        ${card("Recent demo sales", `
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Date</th><th>Product</th><th>Qty</th><th>Amount</th><th>Payment</th></tr>
+              </thead>
+              <tbody>
+                ${demoSales.map(s => `
+                  <tr>
+                    <td>${s.date}</td>
+                    <td>${escapeHTML(s.product)}</td>
+                    <td>${s.quantity} ${escapeHTML(s.unit)}</td>
+                    <td>${money(s.amount)}</td>
+                    <td><span class="pill">${escapeHTML(s.payment)}</span></td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
           </div>
-        </div>`;
-    }
+        `)}
+      </div>
 
-    function renderProducts() {
-      const filtered = demoProducts.filter(p =>
-        (!productFilter || p.category === productFilter) &&
-        p.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+      <div class="stack">
+        ${card("Quick actions", [
+          ["🛒","Record a sale","View demo sales","Sales"],
+          ["📦","Manage products","Add or browse stock","Products"],
+          ["👥","Customer debts","Review sample balances","Customers / Debts"],
+          ["📊","View reports","Planned business reports","Reports"]
+        ].map(([icon,title,desc,page]) => `
+          <button class="quick-action" data-page="${page}" type="button">
+            <span class="action-icon">${icon}</span>
+            <span><strong>${title}</strong><small>${desc}</small></span>
+          </button>
+        `).join(""))}
 
-      return `
-        <h2 class="page-title">Products &amp; Stock</h2>
-        <p class="page-description">Browse the sample inventory for an agrovet selling feeds and farm supplies.</p>
-        <div class="notice">Demo mode: changes made here are not saved. We'll connect the database in a later step.</div>
-        <div class="toolbar">
-          <input class="field" id="product-search" placeholder="Search products..." value="${escapeHTML(searchTerm)}" style="flex:1;min-width:150px">
-          <select class="field" id="category-filter" style="flex:1;min-width:150px">
-            <option value="">All categories</option>
-            ${categories.map(([name]) => `<option ${productFilter === name ? "selected" : ""} value="${escapeHTML(name)}">${escapeHTML(name)}</option>`).join("")}
-          </select>
-          <button class="primary" data-page="Stock">Stock overview</button>
+        ${card("Low-stock alerts", lowStock.map(p => `
+          <div class="alert">
+            <span class="alert-icon">⚠</span>
+            <div>
+              <strong>${escapeHTML(p.name)}</strong>
+              <small>Only ${p.quantity} ${escapeHTML(p.unit)} left in demo stock</small>
+            </div>
+          </div>
+        `).join("") || `<div class="empty">No low-stock items.</div>`)}
+
+        ${card("Demo limitations", `
+          <p class="subtext">
+            Products, sales and debts shown here are sample data.
+            The app is not yet connected to Supabase, user login,
+            or a secure admin dashboard.
+          </p>
+        `)}
+      </div>
+    </div>`;
+}
+
+function renderProducts() {
+  const filtered = demoProducts.filter(p =>
+    (!productFilter || p.category === productFilter) &&
+    p.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  return `
+    <h2 class="page-title">Products &amp; Stock</h2>
+    <p class="page-description">
+      Manage animal feeds, seeds, fertilizers, pesticides,
+      veterinary products and farm supplies.
+    </p>
+
+    <div class="notice">
+      DEMO MODE: Products you add are held only in browser memory.
+      They are NOT saved to Supabase and will disappear when you refresh
+      or close the page.
+    </div>
+
+    <div class="toolbar">
+      <input class="field" id="product-search"
+        placeholder="Search products..."
+        value="${escapeHTML(searchTerm)}"
+        style="flex:1;min-width:150px"
+        aria-label="Search products">
+
+      <select class="field" id="category-filter"
+        style="flex:1;min-width:150px"
+        aria-label="Filter by category">
+        <option value="">All categories</option>
+        ${categories.map(([name]) => `
+          <option value="${escapeHTML(name)}"
+            ${productFilter === name ? "selected" : ""}>
+            ${escapeHTML(name)}
+          </option>
+        `).join("")}
+      </select>
+
+      <button class="primary" id="add-product-btn" type="button">
+        ＋ Add Product
+      </button>
+
+      <button class="secondary" data-page="Stock" type="button">
+        Stock overview
+      </button>
+    </div>
+
+    <section class="card" id="add-product-panel" hidden>
+      <div class="card-heading">
+        <h3>Add a new product</h3>
+        <button class="text-btn" id="cancel-product-btn" type="button">
+          Cancel
+        </button>
+      </div>
+
+      <form id="add-product-form">
+        <div class="form-grid">
+          <label>
+            Product name *
+            <input class="field" name="productName"
+              placeholder="e.g. Layers Mash" required maxlength="100">
+          </label>
+
+          <label>
+            Category *
+            <select class="field" name="category" required>
+              <option value="">Choose category</option>
+              ${categories.map(([name]) => `
+                <option value="${escapeHTML(name)}">${escapeHTML(name)}</option>
+              `).join("")}
+            </select>
+          </label>
+
+          <label>
+            Quantity in stock *
+            <input class="field" name="quantity" type="number"
+              min="0" step="any" placeholder="e.g. 20" required>
+          </label>
+
+          <label>
+            Unit *
+            <select class="field" name="unit" required>
+              <option value="">Choose unit</option>
+              <option value="bags">Bags</option>
+              <option value="kg">Kilograms (kg)</option>
+              <option value="packets">Packets</option>
+              <option value="bottles">Bottles</option>
+              <option value="pieces">Pieces</option>
+              <option value="litres">Litres</option>
+              <option value="boxes">Boxes</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+
+          <label>
+            Purchase cost per unit (KSh) *
+            <input class="field" name="cost" type="number"
+              min="0" step="0.01" placeholder="e.g. 2500" required>
+          </label>
+
+          <label>
+            Selling price per unit (KSh) *
+            <input class="field" name="price" type="number"
+              min="0" step="0.01" placeholder="e.g. 2900" required>
+          </label>
         </div>
-        ${card("Inventory", `
-          <div class="table-wrap"><table>
-            <thead><tr><th>Product</th><th>Category</th><th>Quantity</th><th>Cost / unit</th><th>Selling / unit</th></tr></thead>
-            <tbody>${filtered.map(p => `<tr>
-              <td><strong>${escapeHTML(p.name)}</strong></td>
-              <td>${escapeHTML(p.category)}</td>
-              <td><span class="pill" style="${p.quantity <= 5 ? "background:#fff0ed;color:#b83232" : ""}">${p.quantity} ${escapeHTML(p.unit)}</span></td>
-              <td>${money(p.cost)}</td><td>${money(p.price)}</td>
-            </tr>`).join("") || `<tr><td colspan="5">No matching products.</td></tr>`}</tbody>
-          </table></div>
-        `)}
-      `;
-    }
 
-    function renderSales() {
-      return `
-        <h2 class="page-title">Sales</h2>
-        <p class="page-description">Review example transactions. A real sales form will save records and deduct stock automatically after database integration.</p>
-        <div class="notice">This page is read-only in this first preview. Do not use the sample figures for actual bookkeeping.</div>
-        ${card("Demo transactions", `
-          <div class="table-wrap"><table>
-            <thead><tr><th>Date</th><th>Product</th><th>Quantity</th><th>Amount</th><th>Payment</th></tr></thead>
-            <tbody>${demoSales.map(s => `<tr><td>${s.date}</td><td>${escapeHTML(s.product)}</td><td>${s.quantity} ${escapeHTML(s.unit)}</td><td>${money(s.amount)}</td><td>${escapeHTML(s.payment)}</td></tr>`).join("")}</tbody>
-          </table></div>
-        `)}
-      `;
-    }
+        <p class="subtext">
+          Enter costs and prices for one unit, such as one bag or bottle.
+          Potential margin does not include expenses.
+        </p>
 
-    function renderDebts() {
-      return `
-        <h2 class="page-title">Customers &amp; Debts</h2>
-        <p class="page-description">See how customer credit records could appear in your agrovet dashboard.</p>
-        <div class="notice">Sample customer names and balances only. No real customer data is stored.</div>
-        ${card("Demo outstanding balances", `
-          <div class="table-wrap"><table>
-            <thead><tr><th>Customer</th><th>Balance</th><th>Status</th></tr></thead>
-            <tbody>${demoDebts.map(d => `<tr><td>${escapeHTML(d.customer)}</td><td>${money(d.amount)}</td><td><span class="pill">Example balance</span></td></tr>`).join("")}</tbody>
-          </table></div>
-        `)}
-      `;
-    }
+        <div class="form-actions">
+          <button class="primary" type="submit">Add to inventory</button>
+          <button class="secondary" id="cancel-product-btn-2" type="button">
+            Cancel
+          </button>
+        </div>
 
-    function renderStock() {
-      const low = demoProducts.filter(p => p.quantity <= 5);
-      return `
-        <h2 class="page-title">Stock overview</h2>
-        <p class="page-description">Monitor quantities and identify items that may need reordering.</p>
-        ${card("Items to review", low.map(p => `<div class="alert"><span class="alert-icon">⚠</span><div><strong>${escapeHTML(p.name)}</strong><small>${p.quantity} ${escapeHTML(p.unit)} remaining</small></div></div>`).join("") || `<div class="empty">No low-stock demo products.</div>`)}
-        <br>
-        ${card("All stock", `<div class="table-wrap"><table><thead><tr><th>Product</th><th>Quantity</th><th>Purchase value</th></tr></thead><tbody>
-          ${demoProducts.map(p => `<tr><td>${escapeHTML(p.name)}</td><td>${p.quantity} ${escapeHTML(p.unit)}</td><td>${money(p.quantity * p.cost)}</td></tr>`).join("")}
-        </tbody></table></div>`)}
-      `;
-    }
+        <p id="product-form-message" role="status" aria-live="polite"></p>
+      </form>
+    </section>
 
-    function renderBasicPage(title, description) {
-      return `
-        <h2 class="page-title">${title}</h2>
-        <p class="page-description">${description}</p>
-        <section class="card">
-          <div class="empty">
-            <div style="font-size:35px;margin-bottom:12px">🌱</div>
-            <strong>This section is planned for the next build stage.</strong><br>
-            It will be connected to secure shop records after Supabase is configured.
-          </div>
-        </section>
-      `;
-    }
+    <section class="card">
+      <div class="card-heading">
+        <h3>Inventory</h3>
+        <span class="pill">${filtered.length} products</span>
+      </div>
 
-    function render() {
-      renderNavigation();
-      const content = document.getElementById("main-content");
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Quantity</th>
+              <th>Cost / unit</th>
+              <th>Selling / unit</th>
+              <th>Margin / unit</th>
+              <th>Stock purchase value</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${filtered.map(p => `
+              <tr>
+                <td><strong>${escapeHTML(p.name)}</strong></td>
+                <td>${escapeHTML(p.category)}</td>
+                <td>
+                  <span class="pill" style="${p.quantity <= 5 ? "background:#fff0ed;color:#b83232" : ""}">
+                    ${p.quantity} ${escapeHTML(p.unit)}
+                  </span>
+                </td>
+                <td>${money(p.cost)}</td>
+                <td>${money(p.price)}</td>
+                <td>${money(p.price - p.cost)}</td>
+                <td>${money(p.quantity * p.cost)}</td>
+              </tr>
+            `).join("") || `
+              <tr><td colspan="7">No matching products found.</td></tr>
+            `}
+          </tbody>
+        </table>
+      </div>
+    </section>`;
+}
 
-      const pages = {
-        "Dashboard": renderDashboard,
-        "Products": renderProducts,
-        "Stock": renderStock,
-        "Sales": renderSales,
-        "Customers / Debts": renderDebts,
-        "Suppliers": () => renderBasicPage("Suppliers", "Organize suppliers and incoming stock."),
-        "Expenses": () => renderBasicPage("Expenses", "Record shop expenses and monitor costs."),
-        "Reports": () => renderBasicPage("Reports", "Review sales, stock movement and estimated profit."),
-        "Staff": () => renderBasicPage("Staff", "Plan staff accounts and access permissions."),
-        "Settings": () => renderBasicPage("Settings", "Shop details, account settings and security.")
-      };
+function renderSales() {
+  return `
+    <h2 class="page-title">Sales</h2>
+    <p class="page-description">
+      Review sample transactions. Recording real sales and automatic
+      stock deduction will be added after database integration.
+    </p>
+    <div class="notice">Demo only. These are not actual business records.</div>
+    ${card("Demo transactions", `
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Date</th><th>Product</th><th>Quantity</th><th>Amount</th><th>Payment</th></tr></thead>
+          <tbody>
+            ${demoSales.map(s => `
+              <tr>
+                <td>${s.date}</td>
+                <td>${escapeHTML(s.product)}</td>
+                <td>${s.quantity} ${escapeHTML(s.unit)}</td>
+                <td>${money(s.amount)}</td>
+                <td>${escapeHTML(s.payment)}</td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </div>
+    `)}`;
+}
 
-      content.innerHTML = (pages[currentPage] || renderDashboard)();
+function renderDebts() {
+  return `
+    <h2 class="page-title">Customers &amp; Debts</h2>
+    <p class="page-description">
+      Example customer credit balances for the future customer ledger.
+    </p>
+    <div class="notice">
+      Sample names and balances only. No real customer information is saved.
+    </div>
+    ${card("Demo outstanding balances", `
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Customer</th><th>Balance</th><th>Status</th></tr></thead>
+          <tbody>
+            ${demoDebts.map(d => `
+              <tr>
+                <td>${escapeHTML(d.customer)}</td>
+                <td>${money(d.amount)}</td>
+                <td><span class="pill">Example balance</span></td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </div>
+    `)}`;
+}
 
-      content.querySelectorAll("[data-page]").forEach(button => {
-        button.addEventListener("click", () => {
-          currentPage = button.dataset.page;
-          searchTerm = "";
-          productFilter = "";
-          render();
-        });
+function renderStock() {
+  const low = demoProducts.filter(p => p.quantity <= 5);
+
+  return `
+    <h2 class="page-title">Stock overview</h2>
+    <p class="page-description">
+      Review product quantities and identify items that may need reordering.
+    </p>
+    ${card("Low-stock items", low.map(p => `
+      <div class="alert">
+        <span class="alert-icon">⚠</span>
+        <div>
+          <strong>${escapeHTML(p.name)}</strong>
+          <small>${p.quantity} ${escapeHTML(p.unit)} remaining</small>
+        </div>
+      </div>
+    `).join("") || `<div class="empty">No low-stock demo products.</div>`)}
+    <br>
+    ${card("All stock", `
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Product</th><th>Quantity</th><th>Purchase value</th></tr></thead>
+          <tbody>
+            ${demoProducts.map(p => `
+              <tr>
+                <td>${escapeHTML(p.name)}</td>
+                <td>${p.quantity} ${escapeHTML(p.unit)}</td>
+                <td>${money(p.quantity * p.cost)}</td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </div>
+    `)}`;
+}
+
+function renderBasicPage(title, description) {
+  return `
+    <h2 class="page-title">${title}</h2>
+    <p class="page-description">${description}</p>
+    <section class="card">
+      <div class="empty">
+        <div style="font-size:35px;margin-bottom:12px">🌱</div>
+        <strong>This section is planned for the next build stage.</strong><br>
+        We'll connect it to secure shop records after Supabase is configured.
+      </div>
+    </section>`;
+}
+
+function render() {
+  renderNavigation();
+
+  const content = document.getElementById("main-content");
+
+  const pages = {
+    "Dashboard": renderDashboard,
+    "Products": renderProducts,
+    "Stock": renderStock,
+    "Sales": renderSales,
+    "Customers / Debts": renderDebts,
+    "Suppliers": () => renderBasicPage("Suppliers", "Organize suppliers and incoming stock."),
+    "Expenses": () => renderBasicPage("Expenses", "Record shop expenses and monitor costs."),
+    "Reports": () => renderBasicPage("Reports", "Review sales, stock movement and estimated profit."),
+    "Staff": () => renderBasicPage("Staff", "Plan staff accounts and access permissions."),
+    "Settings": () => renderBasicPage("Settings", "Shop details, account settings and security.")
+  };
+
+  content.innerHTML = (pages[currentPage] || renderDashboard)();
+
+  content.querySelectorAll("[data-page]").forEach(button => {
+    button.addEventListener("click", () => {
+      currentPage = button.dataset.page;
+      searchTerm = "";
+      productFilter = "";
+      render();
+      window.scrollTo({top:0, behavior:"smooth"});
+    });
+  });
+
+  content.querySelectorAll("[data-category]").forEach(button => {
+    button.addEventListener("click", () => {
+      currentPage = "Products";
+      productFilter = button.dataset.category;
+      searchTerm = "";
+      render();
+    });
+  });
+
+  // Add Product button and form
+  const addButton = document.getElementById("add-product-btn");
+  const panel = document.getElementById("add-product-panel");
+  const form = document.getElementById("add-product-form");
+
+  function closeProductForm() {
+    if (!panel || !form) return;
+    panel.hidden = true;
+    form.reset();
+
+    const message = document.getElementById("product-form-message");
+    if (message) message.textContent = "";
+  }
+
+  if (addButton) {
+    addButton.addEventListener("click", () => {
+      panel.hidden = false;
+      panel.scrollIntoView({behavior:"smooth", block:"start"});
+      form.elements.productName.focus();
+    });
+  }
+
+  ["cancel-product-btn", "cancel-product-btn-2"].forEach(id => {
+    const button = document.getElementById(id);
+    if (button) button.addEventListener("click", closeProductForm);
+  });
+
+  if (form) {
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+
+      const data = new FormData(form);
+      const name = String(data.get("productName") || "").trim();
+      const category = String(data.get("category") || "");
+      const unit = String(data.get("unit") || "");
+      const quantity = Number(data.get("quantity"));
+      const cost = Number(data.get("cost"));
+      const price = Number(data.get("price"));
+      const message = document.getElementById("product-form-message");
+
+      if (
+        !name ||
+        !categories.some(c => c[0] === category) ||
+        !unit ||
+        !Number.isFinite(quantity) || quantity < 0 ||
+        !Number.isFinite(cost) || cost < 0 ||
+        !Number.isFinite(price) || price < 0
+      ) {
+        message.textContent = "Please enter valid values in all fields.";
+        message.style.color = "#b83232";
+        return;
+      }
+
+      demoProducts.push({
+        id: Date.now(),
+        name,
+        category,
+        quantity,
+        unit,
+        cost,
+        price
       });
 
-      content.querySelectorAll("[data-category]").forEach(button => {
-        button.addEventListener("click", () => {
-          currentPage = "Products";
-          productFilter = button.dataset.category;
-          searchTerm = "";
-          render();
-        });
-      });
+      // Clear filters so the newly added product is visible.
+      searchTerm = "";
+      productFilter = "";
 
-      const search = document.getElementById("product-search");
-      if (search) search.addEventListener("input", event => {
-        const position = event.target.selectionStart;
-        searchTerm = event.target.value;
-        render();
-        const next = document.getElementById("product-search");
+      // Re-render the inventory immediately.
+      render();
+
+      const notice = document.createElement("div");
+      notice.className = "notice";
+      notice.setAttribute("role", "status");
+      notice.textContent =
+        "Product added to this browser session only. It has NOT been saved to Supabase.";
+
+      document.getElementById("main-content").prepend(notice);
+      window.scrollTo({top:0, behavior:"smooth"});
+    });
+  }
+
+  // Product search
+  const search = document.getElementById("product-search");
+
+  if (search) {
+    search.addEventListener("input", event => {
+      searchTerm = event.target.value;
+      const position = event.target.selectionStart;
+
+      render();
+
+      const next = document.getElementById("product-search");
+      if (next) {
         next.focus();
         next.setSelectionRange(position, position);
-      });
+      }
+    });
+  }
 
-      const filter = document.getElementById("category-filter");
-      if (filter) filter.addEventListener("change", event => {
-        productFilter = event.target.value;
-        render();
-      });
-    }
+  // Category filter
+  const filter = document.getElementById("category-filter");
 
-    render();
-  </script>
+  if (filter) {
+    filter.addEventListener("change", event => {
+      productFilter = event.target.value;
+      render();
+    });
+  }
+}
+
+render();
+</script>
 </body>
 </html>
