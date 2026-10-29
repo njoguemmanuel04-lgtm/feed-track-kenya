@@ -1,109 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FeedTrack Kenya | Admin</title>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FeedTrack Kenya | Admin LIVE</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
 :root{--green:#087443;--dark:#064e32;--light:#eaf7ef;--bg:#f4f8f6;--text:#17362a;--muted:#718278;--border:#e1ebe5;--red:#b83232}
-*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font:14px Arial,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px Arial,sans-serif}
 .topbar{height:72px;padding:0 22px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5}
 .brand{display:flex;align-items:center;gap:10px}.logo{width:43px;height:43px;border-radius:14px;background:var(--light);display:grid;place-items:center;font-size:25px}
-.brand h1{margin:0;color:var(--dark);font-size:19px}.brand p{margin:2px 0 0;font-size:11px;color:var(--muted)}
+.brand h1{margin:0;color:var(--dark);font-size:18px}.brand p{margin:2px 0 0;font-size:11px;color:var(--muted)}
 main{max-width:1150px;width:92%;margin:20px auto}
 .card{background:#fff;border:1px solid var(--border);border-radius:13px;padding:18px;margin-bottom:16px}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
-.stat{background:#fff;border:1px solid var(--border);border-radius:13px;padding:16px}
-.stat b{font-size:22px;display:block;margin-top:6px}
-table{width:100%;border-collapse:collapse} th,td{padding:11px;border-bottom:1px solid var(--border);text-align:left;font-size:12px} th{background:#f7faf8;color:var(--muted)}
-.btn{border:0;border-radius:8px;padding:9px 12px;font-weight:700;cursor:pointer}
-.btn-green{background:var(--green);color:#fff}.btn-red{background:#fff0ed;color:var(--red);border:1px solid #ffd0cc}
-.btn-white{background:#fff;border:1px solid var(--border);color:var(--green)}
+.stat{background:#fff;border:1px solid var(--border);border-radius:13px;padding:16px}.stat b{font-size:22px;display:block;margin-top:6px}
+.tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}.tab{padding:10px 14px;border-radius:9px;border:1px solid var(--border);background:#fff;cursor:pointer;font-weight:700}.tab.active{background:var(--green);color:#fff;border-color:var(--green)}
+table{width:100%;border-collapse:collapse}th,td{padding:11px;border-bottom:1px solid var(--border);text-align:left;font-size:12px}th{background:#f7faf8;color:var(--muted)}
+.btn{border:0;border-radius:8px;padding:9px 12px;font-weight:700;cursor:pointer}.btn-green{background:var(--green);color:#fff}.btn-red{background:#fff0ed;color:var(--red);border:1px solid #ffd0cc}.btn-white{background:#fff;border:1px solid var(--border);color:var(--green)}
 .field{border:1px solid #cfddd4;border-radius:8px;padding:10px;width:100%;margin-top:6px}
 .login-wrap{max-width:380px;margin:80px auto;background:#fff;border:1px solid var(--border);border-radius:16px;padding:22px;text-align:center}
 @media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
-</style>
-</head>
+</style></head>
 <body>
-<header class="topbar"><div class="brand"><div class="logo">🌿</div><div><h1>FeedTrack Kenya — Admin</h1><p>Owner Dashboard • torzbgvwjhthzuifdses</p></div></div><button id="logout" class="btn btn-white">Logout</button></header>
-
-<div id="login" class="login-wrap">
-  <div style="font-size:40px">🔐</div>
-  <h2>Admin Login</h2>
-  <p style="color:var(--muted);font-size:12px;line-height:1.6">Enter admin password to manage products, stock and staff. Your homepage is NOT affected.</p>
-  <input id="pass" class="field" type="password" placeholder="Enter password: admin123">
-  <button onclick="doLogin()" class="btn btn-green" style="width:100%;margin-top:12px">Login to Admin</button>
-  <p id="loginMsg" style="color:var(--red);font-size:11px;margin-top:8px"></p>
-  <p style="font-size:10px;color:var(--muted);margin-top:12px">Change password in code: admin123</p>
-</div>
-
+<header class="topbar"><div class="brand"><div class="logo">🌿</div><div><h1>FeedTrack Kenya — Admin LIVE</h1><p>Owner Dashboard • torzbgvwjhthzuifdses</p></div></div><button id="logout" class="btn btn-white">Logout</button></header>
+<div id="login" class="login-wrap"><div style="font-size:40px">🔐</div><h2>Admin Login</h2><p style="color:var(--muted);font-size:12px">Manage products, sales, debts. Homepage untouched.</p><input id="pass" class="field" type="password" placeholder="Password: admin123"><button onclick="doLogin()" class="btn btn-green" style="width:100%;margin-top:12px">Login</button><p id="loginMsg" style="color:var(--red);font-size:11px;margin-top:8px"></p></div>
 <main id="adminMain" style="display:none">
-  <div class="stats">
-    <div class="stat"><span style="color:var(--muted);font-size:11px">Total Products</span><b id="sTotal">0</b></div>
-    <div class="stat"><span style="color:var(--muted);font-size:11px">Stock Value (Cost)</span><b id="sValue">KSh 0</b></div>
-    <div class="stat"><span style="color:var(--muted);font-size:11px">Low Stock ≤5</span><b id="sLow">0</b></div>
-    <div class="stat"><span style="color:var(--muted);font-size:11px">Project</span><b style="font-size:12px">torzbgvwjhthzuifdses LIVE</b></div>
-  </div>
-
-  <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px">
-      <h3 style="margin:0">All Products — Live from Supabase</h3>
-      <button onclick="loadAdmin()" class="btn btn-white">↻ Refresh</button>
-    </div>
-    <div style="overflow:auto">
-      <table><thead><tr><th>Product</th><th>Category</th><th>Qty</th><th>Cost</th><th>Price</th><th>Action</th></tr></thead>
-      <tbody id="adminBody"><tr><td colspan="6" style="text-align:center;padding:20px">Loading...</td></tr></tbody></table>
-    </div>
-    <p id="adminMsg" style="font-size:11px;color:var(--green)"></p>
-  </div>
-
-  <div class="card">
-    <h3>How Admin Works</h3>
-    <p style="font-size:12px;line-height:1.7;color:var(--muted)">
-    • This page reads/writes SAME table <b>products</b> as your homepage.<br>
-    • Delete here = deleted on homepage too (same Supabase).<br>
-    • Your homepage design at <b>/index.html</b> is untouched.<br>
-    • To secure more, later we add real login with Supabase Auth.
-    </p>
-  </div>
+<div class="stats"><div class="stat"><span style="color:var(--muted);font-size:11px">Total Products</span><b id="sTotal">0</b></div><div class="stat"><span style="color:var(--muted);font-size:11px">Total Sales</span><b id="sSales">KSh 0</b></div><div class="stat"><span style="color:var(--muted);font-size:11px">Total Debts</span><b id="sDebts">KSh 0</b></div><div class="stat"><span style="color:var(--muted);font-size:11px">Stock Value</span><b id="sValue">KSh 0</b></div></div>
+<div class="tabs"><button class="tab active" data-tab="products">📦 Products</button><button class="tab" data-tab="sales">🛒 Sales LIVE</button><button class="tab" data-tab="debts">👥 Debts LIVE</button></div>
+<div id="tab-products" class="card"><div style="display:flex;justify-content:space-between"><h3>All Products — LIVE</h3><button onclick="loadAdmin()" class="btn btn-white">↻ Refresh</button></div><div style="overflow:auto"><table><thead><tr><th>Product</th><th>Category</th><th>Qty</th><th>Cost</th><th>Price</th><th>Action</th></tr></thead><tbody id="adminBody"></tbody></table></div></div>
+<div id="tab-sales" class="card" style="display:none"><h3>All Sales — LIVE from Supabase</h3><div style="overflow:auto"><table><thead><tr><th>Date</th><th>Product</th><th>Qty</th><th>Amount</th><th>Payment</th><th>Action</th></tr></thead><tbody id="salesBody"></tbody></table></div></div>
+<div id="tab-debts" class="card" style="display:none"><h3>All Customer Debts — LIVE</h3><div style="overflow:auto"><table><thead><tr><th>Customer</th><th>Phone</th><th>Amount</th><th>Action</th></tr></thead><tbody id="debtsBody"></tbody></table></div></div>
 </main>
-
 <script>
 const SUPABASE_URL="https://torzbgvwjhthzuifdses.supabase.co";
 const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRvcnpiZ3Z3amh0aHp1aWZkc2VzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyODQ4OTAsImV4cCI6MjEwODg2MDg5MH0.Jjzgt-mCxA94Y1lG6fLDLupteE8RZs6dygJO5BVClKY";
 const supa=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 const ADMIN_PASS="admin123";
-
-function doLogin(){
-  const p=document.getElementById('pass').value;
-  if(p===ADMIN_PASS){localStorage.setItem('ft_admin','yes'); showAdmin();} else {document.getElementById('loginMsg').innerText="Wrong password. Use admin123";}
-}
-function showAdmin(){
-  document.getElementById('login').style.display='none';
-  document.getElementById('adminMain').style.display='block';
-  loadAdmin();
-}
-if(localStorage.getItem('ft_admin')==='yes'){showAdmin();}
+function doLogin(){const p=document.getElementById('pass').value; if(p===ADMIN_PASS){localStorage.setItem('ft_admin','yes'); showAdmin();} else {document.getElementById('loginMsg').innerText="Wrong password";}}
+function showAdmin(){document.getElementById('login').style.display='none';document.getElementById('adminMain').style.display='block';loadAdmin();}
+if(localStorage.getItem('ft_admin')==='yes') showAdmin();
 document.getElementById('logout').onclick=()=>{localStorage.removeItem('ft_admin'); location.reload();};
-
+document.querySelectorAll('.tab').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');document.getElementById('tab-products').style.display='none';document.getElementById('tab-sales').style.display='none';document.getElementById('tab-debts').style.display='none';document.getElementById('tab-'+t.dataset.tab).style.display='block';})});
 async function loadAdmin(){
-  const {data,error}=await supa.from('products').select('*').order('created_at',{ascending:false});
-  const body=document.getElementById('adminBody');
-  if(error){body.innerHTML=`<tr><td colspan="6" style="color:red">${error.message} — Did you run SQL to create products table?</td></tr>`; return;}
-  const total=data.length;
-  const value=data.reduce((s,p)=>s+Number(p.quantity)*Number(p.cost),0);
-  const low=data.filter(p=>Number(p.quantity)<=5).length;
-  document.getElementById('sTotal').innerText=total;
-  document.getElementById('sValue').innerText="KSh "+value.toLocaleString('en-KE');
-  document.getElementById('sLow').innerText=low;
-  if(data.length===0) body.innerHTML=`<tr><td colspan="6" style="text-align:center">No products yet. Add from homepage.</td></tr>`;
-  else body.innerHTML=data.map(r=>`<tr><td><b>${r.name}</b></td><td>${r.category}</td><td>${r.quantity} ${r.unit}</td><td>KSh ${Number(r.cost).toLocaleString()}</td><td>KSh ${Number(r.price).toLocaleString()}</td><td><button class="btn btn-red" onclick="delProduct(${r.id})">Delete</button></td></tr>`).join('');
+  const prod=await supa.from('products').select('*').order('created_at',{ascending:false});
+  const sales=await supa.from('sales').select('*').order('created_at',{ascending:false}).limit(200);
+  const debts=await supa.from('customers').select('*').order('created_at',{ascending:false}).limit(200);
+  const body=document.getElementById('adminBody'); const sBody=document.getElementById('salesBody'); const dBody=document.getElementById('debtsBody');
+  if(prod.error){body.innerHTML=`<tr><td colspan="6" style="color:red">${prod.error.message}</td></tr>`;} else {
+    const data=prod.data; document.getElementById('sTotal').innerText=data.length; const val=data.reduce((s,p)=>s+Number(p.quantity)*Number(p.cost),0); document.getElementById('sValue').innerText="KSh "+val.toLocaleString('en-KE');
+    body.innerHTML=data.map(r=>`<tr><td><b>${r.name}</b></td><td>${r.category}</td><td>${r.quantity} ${r.unit}</td><td>KSh ${Number(r.cost).toLocaleString()}</td><td>KSh ${Number(r.price).toLocaleString()}</td><td><button class="btn btn-red" onclick="delProduct(${r.id})">Delete</button></td></tr>`).join('')||`<tr><td colspan="6">No products</td></tr>`;
+  }
+  if(sales.error){sBody.innerHTML=`<tr><td colspan="6">${sales.error.message} — Run sales SQL</td></tr>`; document.getElementById('sSales').innerText="0";} else {
+    const data=sales.data; const total=data.reduce((s,r)=>s+Number(r.amount),0); document.getElementById('sSales').innerText="KSh "+total.toLocaleString('en-KE');
+    sBody.innerHTML=data.map(r=>`<tr><td>${new Date(r.created_at).toLocaleDateString()}</td><td>${r.product_name}</td><td>${r.quantity} ${r.unit}</td><td>KSh ${Number(r.amount).toLocaleString()}</td><td>${r.payment}</td><td><button class="btn btn-red" onclick="delSale(${r.id})">Delete</button></td></tr>`).join('')||`<tr><td colspan="6">No sales yet</td></tr>`;
+  }
+  if(debts.error){dBody.innerHTML=`<tr><td colspan="4">${debts.error.message} — Run customers SQL</td></tr>`;} else {
+    const data=debts.data; const total=data.reduce((s,r)=>s+Number(r.amount),0); document.getElementById('sDebts').innerText="KSh "+total.toLocaleString('en-KE');
+    dBody.innerHTML=data.map(r=>`<tr><td><b>${r.name}</b></td><td>${r.phone||""}</td><td>KSh ${Number(r.amount).toLocaleString()}</td><td><button class="btn btn-red" onclick="delDebt(${r.id})">Delete</button></td></tr>`).join('')||`<tr><td colspan="4">No debts</td></tr>`;
+  }
 }
-async function delProduct(id){
-  if(!confirm('Delete this product? This will delete from homepage too.')) return;
-  const {error}=await supa.from('products').delete().eq('id',id);
-  if(error) alert(error.message); else loadAdmin();
-}
+async function delProduct(id){if(!confirm('Delete product?')) return; await supa.from('products').delete().eq('id',id); loadAdmin();}
+async function delSale(id){if(!confirm('Delete sale? Stock will NOT return.')) return; await supa.from('sales').delete().eq('id',id); loadAdmin();}
+async function delDebt(id){if(!confirm('Delete debt?')) return; await supa.from('customers').delete().eq('id',id); loadAdmin();}
 </script>
 </body>
 </html>
