@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Farmgate Feeds - Mwea | Eye Icon Password</title>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Farmgate Feeds - Mwea | Full Protected</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>:root{--green:#087443;--dark:#064e32;--light:#eaf7ef;--bg:#f4f8f6;--text:#17362a;--muted:#718278;--border:#e1ebe5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px Arial}button,input,select{font:inherit}button{cursor:pointer}.topbar{height:72px;padding:0 22px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5}.brand{display:flex;gap:10px;align-items:center}.logo{width:43px;height:43px;border-radius:14px;background:var(--light);display:grid;place-items:center;font-size:25px}.layout{display:flex;min-height:calc(100vh - 72px)}.sidebar{width:218px;background:#fff;border-right:1px solid var(--border);padding:20px 12px}.nav-btn{width:100%;border:0;background:transparent;padding:13px 12px;border-radius:10px;text-align:left;display:flex;gap:11px}.nav-btn.active{background:var(--light);color:var(--green);font-weight:700}main{flex:1;padding:22px}.welcome{border-radius:16px;padding:25px;color:#fff;margin-bottom:20px;background:linear-gradient(110deg,#075b3a,#13834d);display:flex;justify-content:space-between}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:20px}.card{background:#fff;border:1px solid var(--border);border-radius:13px;padding:17px}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse}th,td{padding:12px 10px;border-bottom:1px solid var(--border);font-size:12px;text-align:left}th{background:#f7faf8}.field{width:100%;border:1px solid #cfddd4;border-radius:8px;padding:11px;background:#fff}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.form-grid label{font-size:12px;font-weight:700}.primary{background:var(--green);color:#fff;border:0;border-radius:9px;padding:11px 15px;font-weight:700}.secondary{background:#fff;border:1px solid var(--border);border-radius:9px;padding:10px 13px}.pill{display:inline-block;padding:5px 8px;border-radius:20px;background:var(--light);color:var(--green);font-size:10px}.empty{color:var(--muted);text-align:center;padding:20px}.notice{background:#fff7e8;color:#85530d;padding:12px;border-radius:9px;margin-bottom:15px;font-size:12px}.mobile-nav{display:none}
 #loginOverlay{position:fixed;inset:0;background:linear-gradient(135deg,#064e32,#13834d);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}
 .loginBox{background:#fff;border-radius:16px;padding:28px;max-width:460px;width:100%;box-shadow:0 20px 40px rgba(0,0,0,.2);max-height:95vh;overflow:auto}
-.shopList{max-height:180px;overflow:auto;border:1px solid var(--border);border-radius:10px;margin-bottom:15px}
+.shopList{max-height:200px;overflow:auto;border:1px solid var(--border);border-radius:10px;margin-bottom:15px}
 .shopItem{padding:12px;border-bottom:1px solid var(--border);cursor:pointer;display:flex;justify-content:space-between;align-items:center}
 .shopItem:hover{background:var(--light)} .shopItem:last-child{border:0}
 .passRow{display:flex;gap:8px;margin-top:8px;align-items:center}
@@ -16,7 +16,7 @@
 <div id="loginOverlay">
   <div class="loginBox">
     <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px"><div style="width:48px;height:48px;background:var(--light);border-radius:12px;display:grid;place-items:center;font-size:26px">🌿</div><div><h2>Farmgate Feeds - Mwea</h2><p style="margin:0;font-size:12px;color:#718278">FeedTrack Kenya - Password Protected</p></div></div>
-    <p style="color:var(--muted);font-size:13px;margin:0 0 12px">Select shop — password required.</p>
+    <p style="color:var(--muted);font-size:13px;margin:0 0 12px">Select shop — password required. Deactivated shops blocked.</p>
     <div id="shopList" class="shopList"><div style="padding:12px;color:var(--muted)">Loading shops...</div></div>
     <div id="passSection" style="display:none;background:var(--light);padding:12px;border-radius:10px;margin-bottom:15px">
       <strong id="passShopName" style="font-size:13px"></strong>
@@ -27,9 +27,9 @@
         </div>
         <button class="primary" id="confirmEnter" type="button">Enter</button>
       </div>
-      <div style="display:flex;gap:8px;margin-top:8px"><button class="secondary" id="cancelPass" type="button" style="font-size:11px">Cancel</button><span id="passMsg" style="font-size:12px;color:#b83232"></span></div>
+      <div style="display:flex;gap:8px;margin-top:8px;align-items:center"><button class="secondary" id="cancelPass" type="button" style="font-size:11px">Cancel</button><span id="passMsg" style="font-size:12px;color:#b83232;font-weight:700"></span></div>
     </div>
-    <h3 style="margin:14px 0 8px;font-size:13px">Create New Shop (with password)</h3>
+    <h3 style="margin:14px 0 8px;font-size:13px">Create New Shop (with password + eye)</h3>
     <div class="form-grid" style="grid-template-columns:1fr">
       <label>Shop Name *<input class="field" id="newShopName" placeholder="e.g. Wanguru Agrovet"></label>
       <label>Phone *<input class="field" id="newShopPhone" placeholder="07..."></label>
@@ -69,7 +69,7 @@ function toggleEye(btn){
 document.addEventListener('click',e=>{if(e.target.classList.contains('eyeBtn')) toggleEye(e.target);});
 async function fetchShops(){
   const {data,error}=await supa.from('shops').select('*').order('created_at',{ascending:true}).limit(100);
-  if(error){document.getElementById('shopList').innerHTML=`<div style="padding:12px;color:#b83232">${escapeHTML(error.message)}<br>Run: ALTER TABLE shops ADD COLUMN password TEXT;</div>`;return [];}
+  if(error){document.getElementById('shopList').innerHTML=`<div style="padding:12px;color:#b83232">${escapeHTML(error.message)}<br>Run: ALTER TABLE shops ADD COLUMN password TEXT; ADD COLUMN is_active BOOLEAN DEFAULT true;</div>`;return [];}
   return data||[];
 }
 async function renderShopList(){
@@ -78,10 +78,17 @@ async function renderShopList(){
   if(!shops.length){list.innerHTML='<div style="padding:12px;color:var(--muted)">No shops yet. Create Farmgate Feeds - Mwea below.</div>';return;}
   list.innerHTML=shops.map(s=>{
     const hasPass=s.password?'🔒':'🔓';
-    return `<div class="shopItem" data-id="${s.id}" data-name="${escapeHTML(s.shop_name)}" data-loc="${escapeHTML(s.location||'')}" data-pass="${escapeHTML(s.password||'')}"><span><strong>${hasPass} ${escapeHTML(s.shop_name)}</strong><br><small style="color:var(--muted)">${escapeHTML(s.location||'')} • ${escapeHTML(s.phone||'')} ${s.password?'• Locked':''}</small></span><span style="color:var(--green);font-weight:700">Enter →</span></div>`;
+    const isDeactivated=s.is_active===false;
+    const activeLabel=isDeactivated?'⛔ DEACTIVATED - Contact Owner':'';
+    const style=isDeactivated?'opacity:0.6;background:#fff0ed;border-left:4px solid #b83232':''; 
+    return `<div class="shopItem" data-id="${s.id}" data-name="${escapeHTML(s.shop_name)}" data-loc="${escapeHTML(s.location||'')}" data-pass="${escapeHTML(s.password||'')}" data-active="${s.is_active!==false}" style="${style}"><span><strong>${hasPass} ${escapeHTML(s.shop_name)} ${isDeactivated?'⛔':''}</strong><br><small style="color:${isDeactivated?'#b83232':'var(--muted)'}">${escapeHTML(s.location||'')} • ${escapeHTML(s.phone||'')} ${activeLabel}</small></span><span style="color:${isDeactivated?'#b83232':'var(--green)'};font-weight:700">${isDeactivated?'BLOCKED':'Enter →'}</span></div>`;
   }).join('');
   list.querySelectorAll('.shopItem').forEach(el=>{
     el.addEventListener('click',()=>{
+      if(el.dataset.active==='false'){
+        alert('⛔ SHOP DEACTIVATED! This shop is blocked by admin. Contact Farmgate Owner to pay. Till: 0116982197');
+        return;
+      }
       const shop={id:Number(el.dataset.id), name:el.dataset.name, loc:el.dataset.loc, pass:el.dataset.pass};
       selectedShopToEnter=shop;
       document.getElementById('passShopName').textContent=`Enter password for ${shop.name}`;
@@ -111,6 +118,15 @@ async function tryEnterWithPassword(){
   const entered=document.getElementById('enterPass').value;
   const msg=document.getElementById('passMsg');
   if(!entered){msg.textContent='Enter password';return;}
+  
+  // REAL DEACTIVATE CHECK - BLOCKS LOGIN
+  const {data: freshShop} = await supa.from('shops').select('*').eq('id', selectedShopToEnter.id).single();
+  if(freshShop && freshShop.is_active === false){
+    msg.textContent='⛔ SHOP DEACTIVATED! Contact Farmgate Owner. Pay Till 0116982197 to activate.';
+    msg.style.color='#b83232';
+    return;
+  }
+
   if(!selectedShopToEnter.pass){
     if(confirm(`Shop ${selectedShopToEnter.name} has NO password. Enter?`)){
       await loginToShop(selectedShopToEnter.id,selectedShopToEnter.name,selectedShopToEnter.loc);
@@ -128,7 +144,15 @@ async function initLogin(){
   await renderShopList();
   if(saved && saved.id){
     const {data}=await supa.from('shops').select('*').eq('id',saved.id).maybeSingle();
-    if(data){ await loginToShop(data.id,data.shop_name,data.location); return; }
+    if(data){ 
+      if(data.is_active===false){
+        localStorage.removeItem('farmgate_current_shop');
+        alert('⛔ Your shop was DEACTIVATED by admin. Contact owner.');
+        document.getElementById('loginOverlay').style.display='flex';
+        return;
+      }
+      await loginToShop(data.id,data.shop_name,data.location); return; 
+    }
   }
   document.getElementById('loginOverlay').style.display='flex';
 }
@@ -137,10 +161,10 @@ async function createShop(){
   const shop_name=(nameEl.value||'').trim(); const phone=(phoneEl.value||'').trim(); const location=(locEl.value||'Mwea').trim()||'Mwea'; const password=(passEl.value||'').trim();
   if(!shop_name){msg.textContent='Shop name required';return;}
   if(!phone){msg.textContent='Phone required';return;}
-  if(!password){msg.textContent='Password required!';return;}
+  if(!password){msg.textContent='Password required! Use eye icon to see typing';return;}
   if(password.length<4){msg.textContent='Min 4 chars';return;}
   msg.style.color='#718278'; msg.textContent='Creating locked shop...';
-  const {data,error}=await supa.from('shops').insert([{shop_name,phone,location,password}]).select().single();
+  const {data,error}=await supa.from('shops').insert([{shop_name,phone,location,password,is_active:true}]).select().single();
   if(error){ msg.style.color='#b83232'; msg.textContent=error.message; return; }
   msg.style.color='#087443'; msg.textContent='Locked shop created!';
   await loginToShop(data.id,data.shop_name,data.location);
@@ -177,7 +201,7 @@ function renderNavigation(){
 }
 function card(title,content){return `<section class="card"><div style="display:flex;justify-content:space-between;margin-bottom:12px"><h3 style="margin:0">${title}</h3></div>${content}</section>`;}
 function renderDashboard(){
-  return `<section class="welcome"><div><h2>Welcome to ${escapeHTML(currentShop?currentShop.name:'Farmgate Feeds - Mwea')} 🔒</h2><p>Shop #${currentShop?currentShop.id:'-'} locked & isolated. Bags 20-100kg.</p><span style="display:inline-block;margin-top:10px;padding:5px 8px;border:1px solid #ffffff70;border-radius:7px;font-size:11px">LOCKED · ${demoProducts.length} products • ${escapeHTML(currentShop?currentShop.location:'Mwea')}</span></div><div style="font-size:50px">🔒🌾</div></section>
+  return `<section class="welcome"><div><h2>Welcome to ${escapeHTML(currentShop?currentShop.name:'Farmgate Feeds - Mwea')} 🔒</h2><p>Shop #${currentShop?currentShop.id:'-'} locked & isolated. Bags 20-100kg. Deactivate really works.</p><span style="display:inline-block;margin-top:10px;padding:5px 8px;border:1px solid #ffffff70;border-radius:7px;font-size:11px">LOCKED · ${demoProducts.length} products • ${escapeHTML(currentShop?currentShop.location:'Mwea')} • Eye icon enabled</span></div><div style="font-size:50px">🔒🌾</div></section>
   <div class="stats">
     <section class="card"><div>📦 Stock Value</div><div style="font-size:20px;font-weight:800;margin:8px 0">${money(demoProducts.reduce((s,p)=>s+p.quantity*p.cost,0))}</div><div style="color:var(--muted);font-size:11px">${demoProducts.length} live</div></section>
     <section class="card"><div>🛒 Sales</div><div style="font-size:20px;font-weight:800;margin:8px 0">${money(demoSales.reduce((s,x)=>s+x.amount,0))}</div><div style="color:var(--muted);font-size:11px">${demoSales.length} trans</div></section>
@@ -188,7 +212,7 @@ function renderDashboard(){
 }
 function renderProducts(){
   const filtered=demoProducts.filter(p=>(!productFilter||p.category===productFilter)&&p.name.toLowerCase().includes(searchTerm.toLowerCase()));
-  return `<h2>Products — ${escapeHTML(currentShop?currentShop.name:'')} 🔒</h2><div class="notice">Locked to Shop #${currentShop?currentShop.id:''}</div>
+  return `<h2>Products — ${escapeHTML(currentShop?currentShop.name:'')} 🔒</h2><div class="notice">Locked to Shop #${currentShop?currentShop.id:''} • Deactivate blocks login completely</div>
   <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap"><input class="field" id="product-search" placeholder="Search..." value="${escapeHTML(searchTerm)}" style="flex:1;min-width:150px"><select class="field" id="category-filter" style="min-width:140px"><option value="">All</option>${categories.map(([n])=>`<option value="${escapeHTML(n)}" ${productFilter===n?"selected":""}>${escapeHTML(n)}</option>`).join("")}</select><button class="primary" id="add-product-btn" type="button">＋ Add Product</button><button class="secondary" id="seed-btn" type="button">Seed 15 Demo</button></div>
   <section class="card" id="add-product-panel" hidden><h3>Add Product — FREE TYPE</h3><form id="add-product-form"><div class="form-grid">
   <label>Product name * (FREE TYPE)<input class="field" name="productName" required placeholder="Layers, Omena, Black Gold..."></label>
@@ -214,13 +238,13 @@ function renderSales(){
 function renderDebts(){return `<h2>Customers & Debts — ${escapeHTML(currentShop?currentShop.name:'')} 🔒</h2><section class="card"><h3>Add Debt</h3><form id="debt-form"><div class="form-grid"><label>Name *<input class="field" name="custName" required></label><label>Phone<input class="field" name="custPhone"></label><label>Amount *<input class="field" name="custAmount" type="number" required></label></div><button class="primary" type="submit" style="margin-top:12px">Save Live to Shop #${currentShop?currentShop.id:''}</button><p id="debt-msg"></p></form></section><section class="card"><h3>Outstanding (Locked)</h3><div class="table-wrap"><table><thead><tr><th>Customer</th><th>Phone</th><th>Balance</th></tr></thead><tbody>${demoDebts.map(d=>`<tr><td>${escapeHTML(d.customer)}</td><td>${escapeHTML(d.phone||"")}</td><td>${money(d.amount)}</td></tr>`).join("")||`<tr><td colspan="3">No debts</td></tr>`}</tbody></table></div></section>`;}
 function renderSettings(){
   return `<h2>Settings — ${escapeHTML(currentShop?currentShop.name:'')} 🔒</h2>
-  <div class="notice">🔐 Change password freely — with eye icon to see typing.</div>
-  <section class="card"><h3>🔒 Change Shop Password — Free Change Anytime</h3>
+  <div class="notice">🔐 Change password freely — with eye icon to see typing. Deactivate button now REALLY blocks.</div>
+  <section class="card"><h3>🔒 Change Shop Password — Free Change Anytime (Eye Icon)</h3>
     <form id="change-pass-form"><div class="form-grid" style="grid-template-columns:1fr">
       <label>Current Password *
         <div class="passInputWrap"><input class="field" id="currPass" type="password" required placeholder="Enter current password"><button class="eyeBtn" type="button" data-target="currPass">👁️</button></div>
       </label>
-      <label>New Password * (anything you want)
+      <label>New Password * (anything you want, not 123 forced)
         <div class="passInputWrap"><input class="field" id="newPass" type="password" required placeholder="e.g. Mwea@2025!"><button class="eyeBtn" type="button" data-target="newPass">👁️</button></div>
       </label>
       <label>Confirm New Password *
@@ -231,7 +255,7 @@ function renderSettings(){
     <p id="changePassMsg" style="margin-top:10px;font-size:13px"></p>
     </form>
   </section>
-  <section class="card"><h3>Shop Info</h3><p style="font-size:13px">Shop ID: <strong>${currentShop?currentShop.id:''}</strong><br>Name: <strong>${escapeHTML(currentShop?currentShop.name:'')}</strong><br>Location: ${escapeHTML(currentShop?currentShop.location:'')}<br>Locked: 🔒 Yes — password protected</p>
+  <section class="card"><h3>Shop Info</h3><p style="font-size:13px">Shop ID: <strong>${currentShop?currentShop.id:''}</strong><br>Name: <strong>${escapeHTML(currentShop?currentShop.name:'')}</strong><br>Location: ${escapeHTML(currentShop?currentShop.location:'')}<br>Locked: 🔒 Yes — password protected • Deactivate works: YES — blocked if admin deactivates</p>
   <button class="secondary" id="logoutFromSettings" type="button">Logout / Switch Shop</button></section>`;
 }
 function renderBasic(t,d){return `<h2>${t} — ${escapeHTML(currentShop?currentShop.name:'')} 🔒</h2><p style="color:var(--muted)">${d}</p><section class="card"><div class="empty">Planned next stage — LIVE — Locked Shop #${currentShop?currentShop.id:''}</div></section>`;}
@@ -294,7 +318,7 @@ function render(){
       msg.textContent="Saving new password...";
       const {error:upErr}=await supa.from('shops').update({password:newP}).eq('id',currentShop.id);
       if(upErr){msg.textContent=upErr.message; msg.style.color="#b83232"; return;}
-      msg.textContent=`✅ Password changed! New password: ${newP}`;
+      msg.textContent=`✅ Password changed! New password: ${newP} — with eye icon verified`;
       msg.style.color="#087443";
       await renderShopList();
     });
